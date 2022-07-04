@@ -20,6 +20,10 @@ public class GroupTest {
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        login(userName, password);
+    }
+
+    public void login(String userName, String password) {
         driver.get(addressBookUrl);
         driver.findElement(By.name("user")).sendKeys(userName);
         driver.findElement(By.name("pass")).sendKeys(password);
@@ -33,11 +37,27 @@ public class GroupTest {
 
     @Test
     public void groupTest(){
-        driver.findElement(By.linkText("groups")).click();
-        driver.findElement(By.name("new")).click();
-        driver.findElement(By.name("group_name")).sendKeys("test1");
-        driver.findElement(By.name("group_header")).sendKeys("test2");
-        driver.findElement(By.name("group_footer")).sendKeys("test3");
+        goToGroupPage();
+        createNewGroup();
+        fillGroupForm(new GroupData("test1", "test2", "test3"));
+        submitNewGroup();
+    }
+
+    private void submitNewGroup() {
         driver.findElement(By.name("submit")).click();
+    }
+
+    private void fillGroupForm(GroupData groupData) {
+        driver.findElement(By.name("group_name")).sendKeys(groupData.getGroupName());
+        driver.findElement(By.name("group_header")).sendKeys(groupData.getGroupHeader());
+        driver.findElement(By.name("group_footer")).sendKeys(groupData.getGroupFooter());
+    }
+
+    private void createNewGroup() {
+        driver.findElement(By.name("new")).click();
+    }
+
+    private void goToGroupPage() {
+        driver.findElement(By.linkText("groups")).click();
     }
 }
