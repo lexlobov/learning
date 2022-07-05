@@ -8,16 +8,16 @@ import static org.testng.AssertJUnit.assertEquals;
 
 public class TestBase {
 
-    public final ApplicationManager applicationManager = new ApplicationManager();
+    public final ApplicationManager app = new ApplicationManager();
 
     @BeforeMethod
     public void setUp(){
-        applicationManager.app.init();
+        app.init();
     }
 
     @AfterMethod
     public void tearDown(){
-        applicationManager.app.stop();
+        app.stop();
     }
 
 }
