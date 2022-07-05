@@ -1,7 +1,7 @@
 package addressbook.appmanager;
 
-import addressbook.ContactData;
-import addressbook.GroupData;
+import addressbook.model.ContactData;
+import addressbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.AssertJUnit;
