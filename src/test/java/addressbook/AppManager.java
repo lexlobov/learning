@@ -13,7 +13,7 @@ public class AppManager {
     String userName = "admin";
     String password = "secret";
 
-    protected void init() {
+    public void init() {
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
@@ -27,37 +27,37 @@ public class AppManager {
         driver.findElement(By.xpath("//input[@type='submit']")).click();
     }
 
-    protected void stop() {
+    public void stop() {
         driver.quit();
     }
 
-    protected void submitNewGroup() {
+    public void submitNewGroup() {
         driver.findElement(By.name("submit")).click();
     }
 
-    protected void fillGroupForm(GroupData groupData) {
+    public void fillGroupForm(GroupData groupData) {
         driver.findElement(By.name("group_name")).sendKeys(groupData.getGroupName());
         driver.findElement(By.name("group_header")).sendKeys(groupData.getGroupHeader());
         driver.findElement(By.name("group_footer")).sendKeys(groupData.getGroupFooter());
     }
 
-    protected void createNewGroup() {
+    public void createNewGroup() {
         driver.findElement(By.name("new")).click();
     }
 
-    protected void goToGroupPage() {
+    public void goToGroupPage() {
         driver.findElement(By.linkText("groups")).click();
     }
 
-    protected void checkNewContactAdded() {
+    public void checkNewContactAdded() {
         assertEquals("Information entered into address book.\nadd next or return to home page.", driver.findElement(By.className("msgbox")).getText());
     }
 
-    protected void submitNewContact() {
+    public void submitNewContact() {
         driver.findElement(By.xpath("//input[@type='submit']")).click();
     }
 
-    protected void fillNewContactForm(ContactData contactData) {
+    public void fillNewContactForm(ContactData contactData) {
         driver.findElement(By.name("firstname")).sendKeys(contactData.getFirstName());
         driver.findElement(By.name("middlename")).sendKeys(contactData.getMiddleName());
         driver.findElement(By.name("lastname")).sendKeys(contactData.getLastName());
@@ -65,19 +65,19 @@ public class AppManager {
         driver.findElement(By.name("email")).sendKeys(contactData.getEmail());
     }
 
-    protected void goToNewContactPage() {
+    public void goToNewContactPage() {
         driver.findElement(By.xpath("//a[text()='add new']")).click();
     }
 
-    protected void checkDeletedSuccessfully() {
+    public void checkDeletedSuccessfully() {
         assertEquals("Group has been removed.\nreturn to the group page", driver.findElement(By.className("msgbox")).getText());
     }
 
-    protected void clickDeleteButton() {
+    public void clickDeleteButton() {
         driver.findElement(By.name("delete")).click();
     }
 
-    protected void clickFirstCheckboxInList() {
+    public void clickFirstCheckboxInList() {
         driver.findElement(By.xpath("//input[@type='checkbox']")).click();
     }
 }
