@@ -1,5 +1,7 @@
-package addressbook;
+package addressbook.appmanagement;
 
+import addressbook.model.ContactData;
+import addressbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 

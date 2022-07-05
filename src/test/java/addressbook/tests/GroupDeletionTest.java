@@ -1,4 +1,4 @@
-package addressbook;
+package addressbook.tests;
 
 import org.testng.annotations.Test;
 

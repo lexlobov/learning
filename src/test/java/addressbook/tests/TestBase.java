@@ -1,5 +1,6 @@
-package addressbook;
+package addressbook.tests;
 
+import addressbook.appmanagement.AppManager;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
