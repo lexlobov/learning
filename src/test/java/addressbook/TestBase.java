@@ -9,15 +9,20 @@ import java.util.concurrent.TimeUnit;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-public class TestBase {
+public class TestBase extends AppManager {
 
     ChromeDriver driver;
     String addressBookUrl = "http://localhost/addressbook/";
     String userName = "admin";
     String password = "secret";
 
+
     @BeforeMethod
     public void setUp(){
+        init();
+    }
+
+    private void init() {
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
@@ -33,6 +38,10 @@ public class TestBase {
 
     @AfterMethod
     public void tearDown(){
+        stop();
+    }
+
+    private void stop() {
         driver.quit();
     }
 
