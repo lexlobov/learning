@@ -73,4 +73,16 @@ public class TestBase {
     protected void goToNewContactPage() {
         driver.findElement(By.xpath("//a[text()='add new']")).click();
     }
+
+    protected void checkDeletedSuccessfully() {
+        assertEquals("Group has been removed.\nreturn to the group page", driver.findElement(By.className("msgbox")).getText());
+    }
+
+    protected void clickDeleteButton() {
+        driver.findElement(By.name("delete")).click();
+    }
+
+    protected void clickFirstCheckboxInList() {
+        driver.findElement(By.xpath("//input[@type='checkbox']")).click();
+    }
 }
