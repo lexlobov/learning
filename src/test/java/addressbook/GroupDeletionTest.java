@@ -8,10 +8,10 @@ public class GroupDeletionTest extends TestBase {
 
     @Test
     public void groupDeletionTest(){
-        goToGroupPage();
-        clickFirstCheckboxInList();
-        clickDeleteButton();
-        checkDeletedSuccessfully();
+        app.goToGroupPage();
+        app.clickFirstCheckboxInList();
+        app.clickDeleteButton();
+        app.checkDeletedSuccessfully();
     }
 
 }

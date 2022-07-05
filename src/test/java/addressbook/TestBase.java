@@ -5,17 +5,19 @@ import org.testng.annotations.BeforeMethod;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-public class TestBase extends AppManager {
+public class TestBase {
 
+
+    protected final AppManager app = new AppManager();
 
     @BeforeMethod
     public void setUp(){
-        init();
+        app.init();
     }
 
     @AfterMethod
     public void tearDown(){
-        stop();
+        app.stop();
     }
 
 }
