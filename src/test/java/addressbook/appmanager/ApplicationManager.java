@@ -1,5 +1,7 @@
-package addressbook;
+package addressbook.appmanager;
 
+import addressbook.ContactData;
+import addressbook.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.AssertJUnit;
@@ -9,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import static org.testng.AssertJUnit.assertEquals;
 
 public class ApplicationManager {
-    protected final ApplicationManager app = new ApplicationManager();
+    public final ApplicationManager app = new ApplicationManager();
     ChromeDriver driver;
     String addressBookUrl = "http://localhost/addressbook/";
     String userName = "admin";
@@ -59,19 +61,19 @@ public class ApplicationManager {
         driver.findElement(By.xpath("//input[@type='checkbox']")).click();
     }
 
-    protected void checkGroupDeleted() {
+    public void checkGroupDeleted() {
         assertEquals("Group has been removed.\nreturn to the group page", app.driver.findElement(By.className("msgbox")).getText());
     }
 
-    protected void checkContactCreated() {
+    public void checkContactCreated() {
         AssertJUnit.assertEquals("Information entered into address book.\nadd next or return to home page.", driver.findElement(By.className("msgbox")).getText());
     }
 
-    protected void submitNewContact() {
+    public void submitNewContact() {
         driver.findElement(By.xpath("//input[@type='submit']")).click();
     }
 
-    protected void fillNewContactForm(ContactData contactData) {
+    public void fillNewContactForm(ContactData contactData) {
         driver.findElement(By.name("firstname")).sendKeys(contactData.getFirstName());
         driver.findElement(By.name("middlename")).sendKeys(contactData.getMiddleName());
         driver.findElement(By.name("lastname")).sendKeys(contactData.getLastName());
@@ -79,7 +81,7 @@ public class ApplicationManager {
         driver.findElement(By.name("email")).sendKeys(contactData.getEmail());
     }
 
-    protected void goToNewContactPage() {
+    public void goToNewContactPage() {
         driver.findElement(By.xpath("//a[text()='add new']")).click();
     }
 }

@@ -1,8 +1,9 @@
-package addressbook;
+package addressbook.tests;
 
+import addressbook.GroupData;
 import org.testng.annotations.Test;
 
-public class GroupTest extends TestBase{
+public class GroupTest extends TestBase {
 
     @Test
     public void groupTest(){

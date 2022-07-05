@@ -1,5 +1,6 @@
-package addressbook;
+package addressbook.tests;
 
+import addressbook.ContactData;
 import org.testng.annotations.Test;
 
 import static org.testng.AssertJUnit.assertEquals;
