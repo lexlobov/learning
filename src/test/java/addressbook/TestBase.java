@@ -50,4 +50,12 @@ public class TestBase {
     protected void goToGroupPage() {
         driver.findElement(By.linkText("groups")).click();
     }
+
+    protected void submitGroupDeletion() {
+        driver.findElement(By.name("delete")).click();
+    }
+
+    protected void clickFirstCheckBoxInTheList() {
+        driver.findElement(By.xpath("//input[@type='checkbox']")).click();
+    }
 }
