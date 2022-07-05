@@ -6,10 +6,10 @@ public class GroupTest extends TestBase{
 
     @Test
     public void groupTest(){
-        goToGroupPage();
-        createNewGroup();
-        fillGroupForm(new GroupData("test1", "test2", "test3"));
-        submitNewGroup();
+        app.goToGroupPage();
+        app.createNewGroup();
+        app.fillGroupForm(new GroupData("test1", "test2", "test3"));
+        app.submitNewGroup();
     }
 
 }
