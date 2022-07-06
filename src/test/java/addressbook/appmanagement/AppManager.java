@@ -10,13 +10,14 @@ import static org.testng.AssertJUnit.assertEquals;
 
 public class AppManager {
 
-    NavigationHelper navigationHelper;
-    String addressBookUrl = "http://localhost/addressbook/";
+
     String userName = "admin";
     String password = "secret";
 
     ChromeDriver driver;
     GroupHelper groupHelper;
+    NavigationHelper navigationHelper;
+    SessionHelper sessionHelper;
 
     public void init() {
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
@@ -24,15 +25,11 @@ public class AppManager {
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         groupHelper = new GroupHelper(driver);
         navigationHelper = new NavigationHelper(driver);
-        login(userName, password);
+        sessionHelper = new SessionHelper(driver);
+        sessionHelper.login(userName, password);
     }
 
-    public void login(String userName, String password) {
-        driver.get(addressBookUrl);
-        driver.findElement(By.name("user")).sendKeys(userName);
-        driver.findElement(By.name("pass")).sendKeys(password);
-        driver.findElement(By.xpath("//input[@type='submit']")).click();
-    }
+
 
     public void stop() {
         driver.quit();
