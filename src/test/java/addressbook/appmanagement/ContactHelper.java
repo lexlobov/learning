@@ -6,12 +6,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-public class ContactHelper {
-    private ChromeDriver driver;
+public class ContactHelper extends BaseHelper {
 
     public ContactHelper(ChromeDriver driver) {
 
-        this.driver = driver;
+        super(driver);
     }
 
     public void checkNewContactAdded() {
@@ -19,14 +18,14 @@ public class ContactHelper {
     }
 
     public void submitNewContact() {
-        driver.findElement(By.xpath("//input[@type='submit']")).click();
+        click(By.xpath("//input[@type='submit']"));
     }
 
     public void fillNewContactForm(ContactData contactData) {
-        driver.findElement(By.name("firstname")).sendKeys(contactData.getFirstName());
-        driver.findElement(By.name("middlename")).sendKeys(contactData.getMiddleName());
-        driver.findElement(By.name("lastname")).sendKeys(contactData.getLastName());
-        driver.findElement(By.name("mobile")).sendKeys(contactData.getPhoneNumber());
-        driver.findElement(By.name("email")).sendKeys(contactData.getEmail());
+        typeTextIntoField((By.name("firstname")), contactData.getFirstName());
+        typeTextIntoField((By.name("middlename")), contactData.getMiddleName());
+        typeTextIntoField((By.name("lastname")), contactData.getLastName());
+        typeTextIntoField((By.name("mobile")), contactData.getPhoneNumber());
+        typeTextIntoField((By.name("email")), contactData.getEmail());
     }
 }

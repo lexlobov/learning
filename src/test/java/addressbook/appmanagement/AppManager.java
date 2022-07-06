@@ -12,21 +12,26 @@ public class AppManager {
     String userName = "admin";
     String password = "secret";
 
+    String addressBookUrl = "http://localhost/addressbook/";
+
     ChromeDriver driver;
     GroupHelper groupHelper;
     NavigationHelper navigationHelper;
     SessionHelper sessionHelper;
     ContactHelper contactHelper;
+    BaseHelper baseHelper;
 
     public void init() {
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        driver.get(addressBookUrl);
         groupHelper = new GroupHelper(driver);
         navigationHelper = new NavigationHelper(driver);
         sessionHelper = new SessionHelper(driver);
-        sessionHelper.login(userName, password);
         contactHelper = new ContactHelper(driver);
+        baseHelper = new BaseHelper(driver);
+        sessionHelper.login(userName, password);
     }
 
 
@@ -35,6 +40,9 @@ public class AppManager {
         driver.quit();
     }
 
+    public BaseHelper getBaseHelper(){
+        return baseHelper;
+    }
     public ContactHelper getContactHelper(){
         return contactHelper;
     }

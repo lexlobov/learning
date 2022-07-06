@@ -6,11 +6,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-public class GroupHelper {
+public class GroupHelper extends BaseHelper {
 
-    ChromeDriver driver;
     public GroupHelper(ChromeDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void submitNewGroup() {
@@ -18,13 +17,13 @@ public class GroupHelper {
     }
 
     public void fillGroupForm(GroupData groupData) {
-        driver.findElement(By.name("group_name")).sendKeys(groupData.getGroupName());
-        driver.findElement(By.name("group_header")).sendKeys(groupData.getGroupHeader());
-        driver.findElement(By.name("group_footer")).sendKeys(groupData.getGroupFooter());
+        typeTextIntoField(By.name("group_name"), groupData.getGroupName());
+        typeTextIntoField(By.name("group_header"), groupData.getGroupHeader());
+        typeTextIntoField(By.name("group_footer"), groupData.getGroupFooter());
     }
 
     public void createNewGroup() {
-        driver.findElement(By.name("new")).click();
+        click(By.name("new"));
     }
 
     public void checkDeletedSuccessfully() {
@@ -32,10 +31,10 @@ public class GroupHelper {
     }
 
     public void clickDeleteButton() {
-        driver.findElement(By.name("delete")).click();
+        click(By.name("delete"));
     }
 
     public void clickFirstCheckboxInList() {
-        driver.findElement(By.xpath("//input[@type='checkbox']")).click();
+        click(By.xpath("//input[@type='checkbox']"));
     }
 }

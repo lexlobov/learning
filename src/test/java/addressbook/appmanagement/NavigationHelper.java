@@ -3,18 +3,18 @@ package addressbook.appmanagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class NavigationHelper {
+public class NavigationHelper extends BaseHelper {
 
     ChromeDriver driver;
     public NavigationHelper(ChromeDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void goToGroupPage() {
-        driver.findElement(By.linkText("groups")).click();
+        click(By.xpath("//a[text()='groups']"));
     }
 
     public void goToNewContactPage() {
-        driver.findElement(By.xpath("//a[text()='add new']")).click();
+        click(By.xpath("//a[text()='add new']"));
     }
 }
