@@ -1,7 +1,5 @@
 package addressbook.appmanagement;
 
-import addressbook.model.ContactData;
-import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
@@ -18,6 +16,7 @@ public class AppManager {
     GroupHelper groupHelper;
     NavigationHelper navigationHelper;
     SessionHelper sessionHelper;
+    ContactHelper contactHelper;
 
     public void init() {
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
@@ -27,6 +26,7 @@ public class AppManager {
         navigationHelper = new NavigationHelper(driver);
         sessionHelper = new SessionHelper(driver);
         sessionHelper.login(userName, password);
+        contactHelper = new ContactHelper(driver);
     }
 
 
@@ -35,20 +35,8 @@ public class AppManager {
         driver.quit();
     }
 
-    public void checkNewContactAdded() {
-        assertEquals("Information entered into address book.\nadd next or return to home page.", driver.findElement(By.className("msgbox")).getText());
-    }
-
-    public void submitNewContact() {
-        driver.findElement(By.xpath("//input[@type='submit']")).click();
-    }
-
-    public void fillNewContactForm(ContactData contactData) {
-        driver.findElement(By.name("firstname")).sendKeys(contactData.getFirstName());
-        driver.findElement(By.name("middlename")).sendKeys(contactData.getMiddleName());
-        driver.findElement(By.name("lastname")).sendKeys(contactData.getLastName());
-        driver.findElement(By.name("mobile")).sendKeys(contactData.getPhoneNumber());
-        driver.findElement(By.name("email")).sendKeys(contactData.getEmail());
+    public ContactHelper getContactHelper(){
+        return contactHelper;
     }
 
     public GroupHelper getGroupHelper() {
