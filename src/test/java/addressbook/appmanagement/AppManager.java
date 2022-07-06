@@ -1,7 +1,6 @@
 package addressbook.appmanagement;
 
 import addressbook.model.ContactData;
-import addressbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -10,15 +9,19 @@ import java.util.concurrent.TimeUnit;
 import static org.testng.AssertJUnit.assertEquals;
 
 public class AppManager {
-    ChromeDriver driver;
+
     String addressBookUrl = "http://localhost/addressbook/";
     String userName = "admin";
     String password = "secret";
+
+    ChromeDriver driver;
+    GroupHelper groupHelper;
 
     public void init() {
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        groupHelper = new GroupHelper(driver);
         login(userName, password);
     }
 
@@ -31,20 +34,6 @@ public class AppManager {
 
     public void stop() {
         driver.quit();
-    }
-
-    public void submitNewGroup() {
-        driver.findElement(By.name("submit")).click();
-    }
-
-    public void fillGroupForm(GroupData groupData) {
-        driver.findElement(By.name("group_name")).sendKeys(groupData.getGroupName());
-        driver.findElement(By.name("group_header")).sendKeys(groupData.getGroupHeader());
-        driver.findElement(By.name("group_footer")).sendKeys(groupData.getGroupFooter());
-    }
-
-    public void createNewGroup() {
-        driver.findElement(By.name("new")).click();
     }
 
     public void goToGroupPage() {
@@ -71,15 +60,7 @@ public class AppManager {
         driver.findElement(By.xpath("//a[text()='add new']")).click();
     }
 
-    public void checkDeletedSuccessfully() {
-        assertEquals("Group has been removed.\nreturn to the group page", driver.findElement(By.className("msgbox")).getText());
-    }
-
-    public void clickDeleteButton() {
-        driver.findElement(By.name("delete")).click();
-    }
-
-    public void clickFirstCheckboxInList() {
-        driver.findElement(By.xpath("//input[@type='checkbox']")).click();
+    public GroupHelper getGroupHelper() {
+        return groupHelper;
     }
 }
