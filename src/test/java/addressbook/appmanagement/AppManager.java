@@ -10,6 +10,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 public class AppManager {
 
+    NavigationHelper navigationHelper;
     String addressBookUrl = "http://localhost/addressbook/";
     String userName = "admin";
     String password = "secret";
@@ -22,6 +23,7 @@ public class AppManager {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         groupHelper = new GroupHelper(driver);
+        navigationHelper = new NavigationHelper(driver);
         login(userName, password);
     }
 
@@ -34,10 +36,6 @@ public class AppManager {
 
     public void stop() {
         driver.quit();
-    }
-
-    public void goToGroupPage() {
-        driver.findElement(By.linkText("groups")).click();
     }
 
     public void checkNewContactAdded() {
@@ -56,11 +54,11 @@ public class AppManager {
         driver.findElement(By.name("email")).sendKeys(contactData.getEmail());
     }
 
-    public void goToNewContactPage() {
-        driver.findElement(By.xpath("//a[text()='add new']")).click();
-    }
-
     public GroupHelper getGroupHelper() {
         return groupHelper;
+    }
+
+    public NavigationHelper getNavigationHelper() {
+        return navigationHelper;
     }
 }
