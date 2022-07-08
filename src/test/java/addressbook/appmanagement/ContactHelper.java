@@ -2,13 +2,14 @@ package addressbook.appmanagement;
 
 import addressbook.model.ContactData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.testng.AssertJUnit.assertEquals;
 
 public class ContactHelper extends BaseHelper {
 
-    public ContactHelper(ChromeDriver driver) {
+    public ContactHelper(WebDriver driver) {
 
         super(driver);
     }

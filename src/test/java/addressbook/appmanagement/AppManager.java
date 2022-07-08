@@ -1,6 +1,10 @@
 package addressbook.appmanagement;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.Browser;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,15 +16,23 @@ public class AppManager {
 
     String addressBookUrl = "http://localhost/addressbook/";
 
-    ChromeDriver driver;
+    WebDriver driver;
     GroupHelper groupHelper;
     NavigationHelper navigationHelper;
     SessionHelper sessionHelper;
     ContactHelper contactHelper;
 
     public void init() {
-        System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
-        driver = new ChromeDriver();
+        Browser browser = Browser.CHROME;
+        if (browser == Browser.CHROME){
+            System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
+            driver = new ChromeDriver();
+        } else if (browser == Browser.FIREFOX){
+            driver = new FirefoxDriver();
+        } else {
+            driver = new EdgeDriver();
+        }
+
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         driver.get(addressBookUrl);
         groupHelper = new GroupHelper(driver);

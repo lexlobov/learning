@@ -1,12 +1,13 @@
 package addressbook.appmanagement;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class BaseHelper {
-    ChromeDriver driver;
+    WebDriver driver;
 
-    public BaseHelper(ChromeDriver driver){
+    public BaseHelper(WebDriver driver){
         this.driver=driver;
     }
 
