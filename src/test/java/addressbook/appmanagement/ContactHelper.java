@@ -29,4 +29,12 @@ public class ContactHelper extends BaseHelper {
         typeTextIntoField((By.name("mobile")), contactData.getPhoneNumber());
         typeTextIntoField((By.name("email")), contactData.getEmail());
     }
+
+    public void checkAlertPresent(){
+        assertEquals( true, clickAlert());
+    }
+
+    public void checkMessageCorrect() {
+        assertEquals("Record successful deleted", driver.findElement(By.className("msgbox")).getText());
+    }
 }

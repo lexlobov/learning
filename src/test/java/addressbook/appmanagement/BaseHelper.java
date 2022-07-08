@@ -12,10 +12,25 @@ public class BaseHelper {
     }
 
     public void typeTextIntoField(By locator, String text){
-        driver.findElement(locator).sendKeys(text);
+        if (text != null){
+            String existingText = driver.findElement(locator).getAttribute("value");
+            if (! text.equals(existingText)){
+                driver.findElement(locator).clear();
+                driver.findElement(locator).sendKeys(text);
+            }
+        }
     }
 
     public void click(By locator){
         driver.findElement(locator).click();
+    }
+
+    public boolean clickAlert(){
+        try {
+            driver.switchTo().alert().accept();
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 }
