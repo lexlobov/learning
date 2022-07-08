@@ -22,4 +22,22 @@ public class EquationTest {
         assertEquals(e.getN(), 2);
     }
 
+    @Test
+    public void testLinear(){
+        Equation e = new Equation(0, 1, 1);
+        assertEquals(e.getN(), 1);
+    }
+
+    @Test
+    public void testConstant(){
+        Equation e = new Equation(0, 0, 1);
+        assertEquals(e.getN(), 0);
+    }
+
+    @Test
+    public void testZero(){
+        Equation e = new Equation(0, 0, 0);
+        assertEquals(e.getN(), -1);
+    }
+
 }
