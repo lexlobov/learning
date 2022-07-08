@@ -21,9 +21,14 @@ public class AppManager {
     NavigationHelper navigationHelper;
     SessionHelper sessionHelper;
     ContactHelper contactHelper;
+    private Browser browser;
+
+    public AppManager(Browser browser) {
+
+        this.browser = browser;
+    }
 
     public void init() {
-        Browser browser = Browser.CHROME;
         if (browser == Browser.CHROME){
             System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
             driver = new ChromeDriver();
