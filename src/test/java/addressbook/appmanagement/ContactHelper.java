@@ -26,7 +26,7 @@ public class ContactHelper extends BaseHelper {
         typeTextIntoField((By.name("firstname")), contactData.getFirstName());
         typeTextIntoField((By.name("middlename")), contactData.getMiddleName());
         typeTextIntoField((By.name("lastname")), contactData.getLastName());
-        typeTextIntoField((By.name("mobile")), contactData.getPhoneNumber());
+        typeTextIntoField((By.name("mobile")), contactData.getMobilePhone());
         typeTextIntoField((By.name("email")), contactData.getEmail());
     }
 
