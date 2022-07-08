@@ -4,8 +4,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.AssertJUnit.assertEquals;
-
 public class AppManager {
 
 
@@ -19,7 +17,6 @@ public class AppManager {
     NavigationHelper navigationHelper;
     SessionHelper sessionHelper;
     ContactHelper contactHelper;
-    BaseHelper baseHelper;
 
     public void init() {
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver_win32\\chromedriver.exe");
@@ -30,7 +27,6 @@ public class AppManager {
         navigationHelper = new NavigationHelper(driver);
         sessionHelper = new SessionHelper(driver);
         contactHelper = new ContactHelper(driver);
-        baseHelper = new BaseHelper(driver);
         sessionHelper.login(userName, password);
     }
 
@@ -40,9 +36,6 @@ public class AppManager {
         driver.quit();
     }
 
-    public BaseHelper getBaseHelper(){
-        return baseHelper;
-    }
     public ContactHelper getContactHelper(){
         return contactHelper;
     }

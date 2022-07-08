@@ -37,4 +37,8 @@ public class GroupHelper extends BaseHelper {
     public void clickFirstCheckboxInList() {
         click(By.xpath("//input[@type='checkbox']"));
     }
+
+    public void checkIfGroupUpdated(){
+        assertEquals("Group record has been updated.\nreturn to the group page", driver.findElement(By.className("msgbox")).getText());
+    }
 }

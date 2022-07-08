@@ -5,7 +5,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class NavigationHelper extends BaseHelper {
 
-    ChromeDriver driver;
     public NavigationHelper(ChromeDriver driver) {
         super(driver);
     }
