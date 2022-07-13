@@ -30,11 +30,19 @@ public class ContactHelper extends BaseHelper {
         typeTextIntoField((By.name("email")), contactData.getEmail());
     }
 
+    public void clickUpdateButton(){
+        click(By.name("update"));
+    }
+
     public void checkAlertPresent(){
         assertEquals( true, clickAlert());
     }
 
     public void checkMessageCorrect() {
         assertEquals("Record successful deleted", driver.findElement(By.className("msgbox")).getText());
+    }
+
+    public void checkContactUpdated() {
+        assertEquals("Address book updated\nreturn to home page", driver.findElement(By.className("msgbox")).getText());
     }
 }
