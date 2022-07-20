@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 
 public class ContactModificationTest extends TestBase{
 
+    private final String groupName = "test";
+
     @Test
     public void contactModificationTest(){
         app.getContactHelper().click(By.xpath("//img[@title='Edit']"));
@@ -14,7 +16,7 @@ public class ContactModificationTest extends TestBase{
                 .withFirstName("Elvis")
                 .withLastName("Prado")
                 .withEmail("Elvis@maik.ru")
-                .build(), false);
+                .build(), false, groupName);
         app.getContactHelper().clickUpdateButton();
         app.getContactHelper().checkContactUpdated();
     }

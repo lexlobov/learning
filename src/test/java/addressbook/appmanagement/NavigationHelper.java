@@ -21,11 +21,15 @@ public class NavigationHelper extends BaseHelper {
 
     }
 
-    public void goToNewContactPage() {
+    public void goToHomePage() {
         if(isElementPresent(By.id("maintable"))){
             return;
         }else {
-            click(By.xpath("//a[text()='add new']"));
+            click(By.xpath("//a[text()='home']"));
         }
+    }
+
+    public void goToNewContactPage(){
+        click(By.xpath("//a[text()='add new']"));
     }
 }
