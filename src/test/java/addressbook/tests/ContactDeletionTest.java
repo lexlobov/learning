@@ -18,10 +18,11 @@ public class ContactDeletionTest extends TestBase{
                     .withLastName("Corvus")
                     .withEmail("andreas@maik.ru")
                     .withGroup("test"), groupName);
+            app.getContactHelper().click(By.xpath("//a[text()='home page']"));
         }
-       app.getContactHelper().click(By.xpath("//input[@type='checkbox']"));
-       app.getContactHelper().click(By.xpath("//input[@value='Delete']"));
-       app.getContactHelper().checkAlertPresent();
-       app.getContactHelper().checkMessageCorrect();
+        app.getContactHelper().click(By.xpath("//input[@type='checkbox']"));
+        app.getContactHelper().click(By.xpath("//input[@value='Delete']"));
+        app.getContactHelper().checkAlertPresent();
+        app.getContactHelper().checkMessageCorrect();
     }
 }
