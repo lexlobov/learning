@@ -13,6 +13,7 @@ public class GroupHelper extends BaseHelper {
         super(driver);
     }
 
+
     public void submitNewGroup() {
         driver.findElement(By.name("submit")).click();
     }
@@ -41,5 +42,15 @@ public class GroupHelper extends BaseHelper {
 
     public void checkIfGroupUpdated(){
         assertEquals("Group record has been updated.\nreturn to the group page", driver.findElement(By.className("msgbox")).getText());
+    }
+
+    public void createGroup(GroupData group) {
+        createNewGroup();
+        fillGroupForm(group);
+        submitNewGroup();
+    }
+
+    public boolean isThereAGroup() {
+        return isElementPresent(By.name("selected[]"));
     }
 }
