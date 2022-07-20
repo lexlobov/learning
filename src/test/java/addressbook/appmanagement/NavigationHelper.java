@@ -11,10 +11,21 @@ public class NavigationHelper extends BaseHelper {
     }
 
     public void goToGroupPage() {
-        click(By.xpath("//a[text()='groups']"));
+        if (isElementPresent(By.tagName("h1"))
+                && driver.findElement(By.tagName("h1")).getText().equals("Groups")
+                && isElementPresent(By.linkText("new"))){
+            return;
+        }else {
+            click(By.xpath("//a[text()='groups']"));
+        }
+
     }
 
     public void goToNewContactPage() {
-        click(By.xpath("//a[text()='add new']"));
+        if(isElementPresent(By.id("maintable"))){
+            return;
+        }else {
+            click(By.xpath("//a[text()='add new']"));
+        }
     }
 }
