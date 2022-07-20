@@ -1,6 +1,7 @@
 package addressbook.appmanagement;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 
@@ -30,6 +31,15 @@ public class BaseHelper {
             driver.switchTo().alert().accept();
             return true;
         } catch (Exception e){
+            return false;
+        }
+    }
+
+    protected boolean isElementPresent(By locator) {
+        try{
+            driver.findElement(locator);
+            return true;
+        } catch (NoSuchElementException e){
             return false;
         }
     }

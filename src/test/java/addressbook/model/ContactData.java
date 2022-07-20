@@ -20,7 +20,11 @@ public class ContactData {
     private String home;
     private String notes;
 
-   public static class Builder{
+    private String group;
+
+
+
+    public static class Builder{
        private ContactData newContact;
 
        public Builder(){
@@ -117,6 +121,11 @@ public class ContactData {
            return this;
        }
 
+       public Builder withGroup(String group){
+           newContact.group = group;
+           return this;
+       }
+
        public ContactData build(){
            return newContact;
        }
@@ -194,5 +203,9 @@ public class ContactData {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getGroup() {
+        return group;
     }
 }

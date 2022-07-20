@@ -3,6 +3,8 @@ package addressbook.appmanagement;
 import addressbook.model.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 
 import static org.testng.AssertJUnit.assertEquals;
@@ -22,12 +24,18 @@ public class ContactHelper extends BaseHelper {
         click(By.xpath("//input[@type='submit']"));
     }
 
-    public void fillNewContactForm(ContactData contactData) {
+    public void fillContactForm(ContactData contactData, boolean creation) {
         typeTextIntoField((By.name("firstname")), contactData.getFirstName());
         typeTextIntoField((By.name("middlename")), contactData.getMiddleName());
         typeTextIntoField((By.name("lastname")), contactData.getLastName());
         typeTextIntoField((By.name("mobile")), contactData.getMobilePhone());
         typeTextIntoField((By.name("email")), contactData.getEmail());
+        if (creation){
+            new Select(driver.findElement(By.name("new_group"))).selectByVisibleText("test1g");
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
+
     }
 
     public void clickUpdateButton(){

@@ -9,12 +9,12 @@ public class ContactModificationTest extends TestBase{
     @Test
     public void contactModificationTest(){
         app.getContactHelper().click(By.xpath("//img[@title='Edit']"));
-        app.getContactHelper().fillNewContactForm(new ContactData.Builder()
+        app.getContactHelper().fillContactForm(new ContactData.Builder()
                 .withMobilePhone("5550173")
                 .withFirstName("Elvis")
                 .withLastName("Prado")
                 .withEmail("Elvis@maik.ru")
-                .build());
+                .build(), false);
         app.getContactHelper().clickUpdateButton();
         app.getContactHelper().checkContactUpdated();
     }
