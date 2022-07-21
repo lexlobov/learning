@@ -20,7 +20,7 @@ public class GroupModificationTest extends TestBase{
         List<GroupData> before = app.getGroupHelper().getGroupList();
         app.getGroupHelper().clickCheckboxInList(before.size()-1);
         app.getGroupHelper().click(By.name("edit"));
-        GroupData group = new GroupData("Updated group", null, null);
+        GroupData group = new GroupData("Updated group", null, null, before.get(before.size()-1).getId());
         app.getGroupHelper().fillGroupForm(group);
         app.getGroupHelper().click(By.name("update"));
         app.getGroupHelper().checkIfGroupUpdated();
