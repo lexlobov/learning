@@ -5,6 +5,9 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.HashSet;
+import java.util.List;
+
 public class GroupModificationTest extends TestBase{
 
     @Test
@@ -14,16 +17,20 @@ public class GroupModificationTest extends TestBase{
             app.getGroupHelper().createGroup(new GroupData("test1", null, null));
         }
         app.getNavigationHelper().goToGroupPage();
-        int before = app.getGroupHelper().getGroupCount();
-        app.getGroupHelper().clickCheckboxInList(1);
+        List<GroupData> before = app.getGroupHelper().getGroupList();
+        app.getGroupHelper().clickCheckboxInList(before.size()-1);
         app.getGroupHelper().click(By.name("edit"));
-        app.getGroupHelper().typeTextIntoField(By.name("group_name"), "updated group");
-        app.getGroupHelper().typeTextIntoField(By.name("group_header"), "updated group header");
+        GroupData group = new GroupData("Updated group", null, null);
+        app.getGroupHelper().fillGroupForm(group);
         app.getGroupHelper().click(By.name("update"));
         app.getGroupHelper().checkIfGroupUpdated();
         app.getGroupHelper().returnToGroupPage();
-        int after = app.getGroupHelper().getGroupCount();
-        Assert.assertEquals(after, before);
+        List<GroupData> after = app.getGroupHelper().getGroupList();
+        Assert.assertEquals(after.size(), before.size());
+
+        before.remove(before.size()-1);
+        before.add(group);
+        Assert.assertEquals(new HashSet<>(before), new HashSet<>(after));
 
     }
 }
