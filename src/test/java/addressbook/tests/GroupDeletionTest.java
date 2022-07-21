@@ -14,7 +14,7 @@ public class GroupDeletionTest extends TestBase {
         }
         int before = app.getGroupHelper().getGroupCount();
         app.getNavigationHelper().goToGroupPage();
-        app.getGroupHelper().clickFirstCheckboxInList();
+        app.getGroupHelper().clickFirstCheckboxInList(1);
         app.getGroupHelper().clickDeleteButton();
         app.getGroupHelper().checkDeletedSuccessfully();
         app.getGroupHelper().returnToGroupPage();

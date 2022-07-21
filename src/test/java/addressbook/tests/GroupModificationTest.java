@@ -15,7 +15,7 @@ public class GroupModificationTest extends TestBase{
         }
         app.getNavigationHelper().goToGroupPage();
         int before = app.getGroupHelper().getGroupCount();
-        app.getGroupHelper().clickFirstCheckboxInList();
+        app.getGroupHelper().clickFirstCheckboxInList(1);
         app.getGroupHelper().click(By.name("edit"));
         app.getGroupHelper().typeTextIntoField(By.name("group_name"), "updated group");
         app.getGroupHelper().typeTextIntoField(By.name("group_header"), "updated group header");

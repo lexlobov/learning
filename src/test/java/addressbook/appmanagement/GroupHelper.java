@@ -36,8 +36,8 @@ public class GroupHelper extends BaseHelper {
         click(By.name("delete"));
     }
 
-    public void clickFirstCheckboxInList() {
-        click(By.xpath("//input[@type='checkbox']"));
+    public void clickFirstCheckboxInList(int index) {
+        driver.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void checkIfGroupUpdated(){
