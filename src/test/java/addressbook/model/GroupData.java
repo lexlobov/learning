@@ -4,12 +4,12 @@ import java.util.Objects;
 
 public class GroupData {
 
-    private final String id;
+    private int id;
     private final String groupName;
     private final String groupHeader;
     private final String groupFooter;
 
-    public GroupData(String groupName, String groupHeader, String groupFooter, String id) {
+    public GroupData(String groupName, String groupHeader, String groupFooter, int id) {
         this.groupName = groupName;
         this.groupHeader = groupHeader;
         this.groupFooter = groupFooter;
@@ -17,13 +17,13 @@ public class GroupData {
     }
 
     public GroupData(String groupName, String groupHeader, String groupFooter) {
-        this.id = null;
+        this.id = 0;
         this.groupName = groupName;
         this.groupHeader = groupHeader;
         this.groupFooter = groupFooter;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -53,11 +53,15 @@ public class GroupData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GroupData groupData = (GroupData) o;
-        return Objects.equals(id, groupData.id) && Objects.equals(groupName, groupData.groupName);
+        return id == groupData.id && Objects.equals(groupName, groupData.groupName);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, groupName);
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
