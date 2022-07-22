@@ -218,6 +218,10 @@ public class ContactData {
         return group;
     }
 
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
     public int getId() {
         return id;
     }

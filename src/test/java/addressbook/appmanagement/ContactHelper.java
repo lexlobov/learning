@@ -93,12 +93,14 @@ public class ContactHelper extends BaseHelper {
         List<WebElement> elements = driver.findElements(By.name("entry"));
         for (WebElement element : elements){
             int id = Integer.parseInt(element.findElement(By.name("selected[]")).getAttribute("id"));
-            String lastName = element.findElement(By.xpath("//td[2]")).getText();
-            String firstName = element.findElement(By.xpath("//td[3]")).getText();
-            String address = element.findElement(By.xpath("//td[4]")).getText();
-            String email = element.findElement(By.xpath("//td[5]")).getText();
-            String phoneNumber = element.findElement(By.xpath("//td[6]")).getText();
 
+            String lastName = element.findElements(By.tagName("td")).get(1).getText();
+
+            String firstName = element.findElements(By.tagName("td")).get(2).getText();
+
+            String address = element.findElements(By.tagName("td")).get(3).getText();
+            String email = element.findElements(By.tagName("td")).get(4).getText();
+            String phoneNumber = element.findElements(By.tagName("td")).get(5).getText();
             contacts.add(new ContactData.Builder()
                     .withId(id)
                     .withFirstName(firstName)
