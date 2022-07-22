@@ -11,11 +11,12 @@ public class CreateContactTest extends TestBase {
     public void createContactTest(){
         app.getNavigationHelper().goToNewContactPage();
         app.getContactHelper().fillContactForm(new ContactData.Builder()
-                .withFirstName("John")
-                .withEmail2("asdasd@dsf.er")
-                .withLastName("Smith")
+                .withFirstName("Zohn")
+                .withEmail("asdasd@dsf.er")
+                .withLastName("Zmith")
                 .withMobilePhone("15464654454")
                 .withGroup("test1g")
+                .withAddress("Southern hemisphere")
                 .build(), true, groupName);
         app.getContactHelper().submitNewContact();
         app.getContactHelper().checkNewContactAdded();

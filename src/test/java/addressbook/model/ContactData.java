@@ -3,6 +3,8 @@ package addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
+
+    private int id;
     private String firstName;
     private String middleName;
     private String lastName;
@@ -31,6 +33,11 @@ public class ContactData {
 
        public Builder(){
            newContact = new ContactData();
+       }
+
+       public Builder withId(int id){
+           newContact.id = id;
+           return this;
        }
 
        public Builder withFirstName(String firstName){
@@ -209,6 +216,14 @@ public class ContactData {
 
     public String getGroup() {
         return group;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

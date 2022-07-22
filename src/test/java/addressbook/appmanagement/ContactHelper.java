@@ -28,12 +28,17 @@ public class ContactHelper extends BaseHelper {
         click(By.xpath("//input[@type='submit']"));
     }
 
+    public void clickEditButtonInTable(int index){
+        driver.findElements(By.xpath("//img[@title='Edit']")).get(index).click();
+    }
+
     public void fillContactForm(ContactData contactData, boolean creation, String groupName) {
         typeTextIntoField((By.name("firstname")), contactData.getFirstName());
         typeTextIntoField((By.name("middlename")), contactData.getMiddleName());
         typeTextIntoField((By.name("lastname")), contactData.getLastName());
         typeTextIntoField((By.name("mobile")), contactData.getMobilePhone());
         typeTextIntoField((By.name("email")), contactData.getEmail());
+        typeTextIntoField((By.name("address")), contactData.getAddress());
         if (creation){
             List<WebElement> elements = driver.findElements(By.tagName("option"));
             if (!(elements.size()>1)){
@@ -87,6 +92,7 @@ public class ContactHelper extends BaseHelper {
         List<ContactData> contacts = new ArrayList<>();
         List<WebElement> elements = driver.findElements(By.name("entry"));
         for (WebElement element : elements){
+            int id = Integer.parseInt(element.findElement(By.name("selected[]")).getAttribute("id"));
             String lastName = element.findElement(By.xpath("//td[2]")).getText();
             String firstName = element.findElement(By.xpath("//td[3]")).getText();
             String address = element.findElement(By.xpath("//td[4]")).getText();
@@ -94,6 +100,7 @@ public class ContactHelper extends BaseHelper {
             String phoneNumber = element.findElement(By.xpath("//td[6]")).getText();
 
             contacts.add(new ContactData.Builder()
+                    .withId(id)
                     .withFirstName(firstName)
                     .withLastName(lastName)
                     .withAddress(address)
