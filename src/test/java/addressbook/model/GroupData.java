@@ -17,7 +17,7 @@ public class GroupData {
     }
 
     public GroupData(String groupName, String groupHeader, String groupFooter) {
-        this.id = 0;
+        this.id = Integer.MAX_VALUE;
         this.groupName = groupName;
         this.groupHeader = groupHeader;
         this.groupFooter = groupFooter;
