@@ -1,5 +1,7 @@
 package addressbook.model;
 
+import java.util.Objects;
+
 public class ContactData {
     private String firstName;
     private String middleName;
@@ -207,5 +209,43 @@ public class ContactData {
 
     public String getGroup() {
         return group;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", email='" + email + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", title='" + title + '\'' +
+                ", company='" + company + '\'' +
+                ", address='" + address + '\'' +
+                ", homePhone='" + homePhone + '\'' +
+                ", workPhone='" + workPhone + '\'' +
+                ", faxPhone='" + faxPhone + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
+                ", homePage='" + homePage + '\'' +
+                ", secondaryAddress='" + secondaryAddress + '\'' +
+                ", home='" + home + '\'' +
+                ", notes='" + notes + '\'' +
+                ", group='" + group + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactData that = (ContactData) o;
+        return Objects.equals(firstName, that.firstName) && Objects.equals(middleName, that.middleName) && Objects.equals(lastName, that.lastName) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(email, that.email) && Objects.equals(nickname, that.nickname) && Objects.equals(title, that.title) && Objects.equals(company, that.company) && Objects.equals(address, that.address) && Objects.equals(homePhone, that.homePhone) && Objects.equals(workPhone, that.workPhone) && Objects.equals(faxPhone, that.faxPhone) && Objects.equals(email2, that.email2) && Objects.equals(email3, that.email3) && Objects.equals(homePage, that.homePage) && Objects.equals(secondaryAddress, that.secondaryAddress) && Objects.equals(home, that.home) && Objects.equals(notes, that.notes) && Objects.equals(group, that.group);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, middleName, lastName, mobilePhone, email, nickname, title, company, address, homePhone, workPhone, faxPhone, email2, email3, homePage, secondaryAddress, home, notes, group);
     }
 }

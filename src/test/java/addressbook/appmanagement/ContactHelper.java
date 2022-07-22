@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.testng.AssertJUnit.assertEquals;
@@ -80,5 +81,30 @@ public class ContactHelper extends BaseHelper {
                 .withGroup("test1g")
                 .build(), true, groupName);
         submitNewContact();
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<>();
+        List<WebElement> elements = driver.findElements(By.name("entry"));
+        for (WebElement element : elements){
+            String lastName = element.findElement(By.xpath("//td[2]")).getText();
+            String firstName = element.findElement(By.xpath("//td[3]")).getText();
+            String address = element.findElement(By.xpath("//td[4]")).getText();
+            String email = element.findElement(By.xpath("//td[5]")).getText();
+            String phoneNumber = element.findElement(By.xpath("//td[6]")).getText();
+
+            contacts.add(new ContactData.Builder()
+                    .withFirstName(firstName)
+                    .withLastName(lastName)
+                    .withAddress(address)
+                    .withEmail(email)
+                    .withMobilePhone(phoneNumber)
+                    .build());
+        }
+        return contacts;
+    }
+
+    public void clickCheckboxInList(int index){
+        driver.findElements(By.name("selected[]")).get(index).click();
     }
 }
