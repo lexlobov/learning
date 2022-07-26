@@ -37,7 +37,7 @@ public class AppManager {
             driver = new EdgeDriver();
         }
 
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         driver.get(addressBookUrl);
         groupHelper = new GroupHelper(driver);
         navigationHelper = new NavigationHelper(driver);
