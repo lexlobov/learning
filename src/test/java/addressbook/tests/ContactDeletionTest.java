@@ -14,29 +14,30 @@ public class ContactDeletionTest extends TestBase{
 
     @BeforeMethod
     private void ensurePreconditions() {
-        if(! app.getContactHelper().isThereAContact()){
-            app.goTo().goToNewContactPage();
-            app.getContactHelper().createContact(new ContactData.Builder()
+        if(app.contact().list().size() == 0){
+            app.goTo().contactPage();
+            app.contact().create(new ContactData.Builder()
                     .withFirstName("Andreas")
                     .withLastName("Corvus")
                     .withEmail("andreas@maik.ru")
                     .withGroup("test"), groupName);
-            app.getContactHelper().click(By.xpath("//a[text()='home page']"));
+            app.contact().click(By.xpath("//a[text()='home page']"));
         }
     }
 
     @Test
     public void deleteContactTest(){
         ensurePreconditions();
-        List<ContactData> before =  app.getContactHelper().getContactList();
-        app.getContactHelper().clickCheckboxInList(before.size()-1);
-        app.getContactHelper().click(By.xpath("//input[@value='Delete']"));
-        app.getContactHelper().checkAlertPresent();
-        app.getContactHelper().checkMessageCorrect();
+        List<ContactData> before =  app.contact().list();
+        int index = before.size()-1;
+        app.contact().clickCheckboxInList(index);
+        app.contact().click(By.xpath("//input[@value='Delete']"));
+        app.contact().checkAlertPresent();
+        app.contact().checkMessageCorrect();
         app.goTo().homePage();
 
-        List<ContactData> after = app.getContactHelper().getContactList();
-        before.remove(before.size()-1);
+        List<ContactData> after = app.contact().list();
+        before.remove(index);
         Assert.assertEquals(before, after);
     }
 

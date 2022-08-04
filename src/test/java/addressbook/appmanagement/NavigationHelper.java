@@ -29,7 +29,7 @@ public class NavigationHelper extends BaseHelper {
         }
     }
 
-    public void goToNewContactPage(){
+    public void contactPage(){
         click(By.xpath("//a[text()='add new']"));
     }
 }

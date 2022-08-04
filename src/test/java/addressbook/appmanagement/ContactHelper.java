@@ -77,7 +77,7 @@ public class ContactHelper extends BaseHelper {
         }
     }
 
-    public void createContact(ContactData.Builder newContact, String groupName) {
+    public void create(ContactData.Builder newContact, String groupName) {
         fillContactForm(new ContactData.Builder()
                 .withFirstName("John")
                 .withEmail2("asdasd@dsf.er")
@@ -88,7 +88,7 @@ public class ContactHelper extends BaseHelper {
         submitNewContact();
     }
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<>();
         List<WebElement> elements = driver.findElements(By.name("entry"));
         for (WebElement element : elements){

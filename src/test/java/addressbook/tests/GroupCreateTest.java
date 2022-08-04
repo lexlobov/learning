@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import java.util.Comparator;
 import java.util.List;
 
-public class GroupTest extends TestBase {
+public class GroupCreateTest extends TestBase {
 
     @Test
     public void groupTest(){
