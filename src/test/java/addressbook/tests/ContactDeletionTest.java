@@ -4,6 +4,7 @@ import addressbook.model.ContactData;
 import addressbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -12,8 +13,8 @@ public class ContactDeletionTest extends TestBase{
 
     private final String groupName = "test";
 
-    @Test
-    public void deleteContactTest(){
+    @BeforeMethod
+    private void ensurePreconditions() {
         if(! app.getContactHelper().isThereAContact()){
             app.getNavigationHelper().goToNewContactPage();
             app.getContactHelper().createContact(new ContactData.Builder()
@@ -23,6 +24,11 @@ public class ContactDeletionTest extends TestBase{
                     .withGroup("test"), groupName);
             app.getContactHelper().click(By.xpath("//a[text()='home page']"));
         }
+    }
+
+    @Test
+    public void deleteContactTest(){
+        ensurePreconditions();
         List<ContactData> before =  app.getContactHelper().getContactList();
         app.getContactHelper().clickCheckboxInList(before.size()-1);
         app.getContactHelper().click(By.xpath("//input[@value='Delete']"));
@@ -34,4 +40,6 @@ public class ContactDeletionTest extends TestBase{
         before.remove(before.size()-1);
         Assert.assertEquals(before, after);
     }
+
+
 }

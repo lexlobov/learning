@@ -2,6 +2,7 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
@@ -11,8 +12,8 @@ public class ContactModificationTest extends TestBase{
 
     private final String groupName = "test";
 
-    @Test
-    public void contactModificationTest(){
+    @BeforeMethod
+    private void ensurePreconditions() {
         if(! app.getContactHelper().isThereAContact()){
             app.getNavigationHelper().goToNewContactPage();
             app.getContactHelper().createContact(new ContactData.Builder()
@@ -22,6 +23,11 @@ public class ContactModificationTest extends TestBase{
                     .withAddress("Hryushkina street")
                     .withGroup("test"), groupName);
         }
+    }
+
+    @Test
+    public void contactModificationTest(){
+        ensurePreconditions();
         List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().clickCheckboxInList(before.size()-1);
         ContactData contact = new ContactData.Builder()
@@ -47,4 +53,6 @@ public class ContactModificationTest extends TestBase{
         Assert.assertEquals(after, before);
 
     }
+
+
 }
