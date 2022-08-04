@@ -4,7 +4,6 @@ import addressbook.model.ContactData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -15,7 +14,7 @@ public class CreateContactTest extends TestBase {
     @Test
     public void createContactTest(){
         List<ContactData> before = app.getContactHelper().getContactList();
-        app.getNavigationHelper().goToNewContactPage();
+        app.goTo().goToNewContactPage();
         ContactData contact = new ContactData.Builder()
                 .withFirstName("Zohn")
                 .withEmail("asdasd@dsf.er")
@@ -27,7 +26,7 @@ public class CreateContactTest extends TestBase {
         app.getContactHelper().fillContactForm(contact, true, groupName);
         app.getContactHelper().submitNewContact();
         app.getContactHelper().checkNewContactAdded();
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().homePage();
 
         List<ContactData> after = app.getContactHelper().getContactList();
         contact.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());

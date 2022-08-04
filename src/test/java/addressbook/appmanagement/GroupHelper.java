@@ -48,18 +48,25 @@ public class GroupHelper extends BaseHelper {
         assertEquals("Group record has been updated.\nreturn to the group page", driver.findElement(By.className("msgbox")).getText());
     }
 
-    public void createGroup(GroupData group) {
+    public void create(GroupData group) {
         createNewGroup();
         fillGroupForm(group);
         submitNewGroup();
     }
 
-    public void modifyGroup(int index, GroupData group) {
+    public void modify(int index, GroupData group) {
         clickCheckboxInList(index);
         click(By.name("edit"));
         fillGroupForm(group);
         click(By.name("update"));
         checkIfGroupUpdated();
+        returnToGroupPage();
+    }
+
+    public void delete(int index) {
+        clickCheckboxInList(index);
+        clickDeleteButton();
+        checkDeletedSuccessfully();
         returnToGroupPage();
     }
 
@@ -75,7 +82,7 @@ public class GroupHelper extends BaseHelper {
         driver.findElement(By.xpath("//a[text()='group page']")).click();
     }
 
-    public List<GroupData> getGroupList() {
+    public List<GroupData> list() {
         List<GroupData> groups = new ArrayList<>();
         List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements){

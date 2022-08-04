@@ -15,7 +15,7 @@ public class ContactModificationTest extends TestBase{
     @BeforeMethod
     private void ensurePreconditions() {
         if(! app.getContactHelper().isThereAContact()){
-            app.getNavigationHelper().goToNewContactPage();
+            app.goTo().goToNewContactPage();
             app.getContactHelper().createContact(new ContactData.Builder()
                     .withFirstName("Andreas")
                     .withLastName("Corvus")
@@ -42,7 +42,7 @@ public class ContactModificationTest extends TestBase{
         app.getContactHelper().fillContactForm(contact, false, groupName);
         app.getContactHelper().clickUpdateButton();
         app.getContactHelper().checkContactUpdated();
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().homePage();
 
         List<ContactData> after = app.getContactHelper().getContactList();
         before.remove(before.size()-1);

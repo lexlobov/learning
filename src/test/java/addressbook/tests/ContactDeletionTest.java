@@ -1,7 +1,6 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
-import addressbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -16,7 +15,7 @@ public class ContactDeletionTest extends TestBase{
     @BeforeMethod
     private void ensurePreconditions() {
         if(! app.getContactHelper().isThereAContact()){
-            app.getNavigationHelper().goToNewContactPage();
+            app.goTo().goToNewContactPage();
             app.getContactHelper().createContact(new ContactData.Builder()
                     .withFirstName("Andreas")
                     .withLastName("Corvus")
@@ -34,7 +33,7 @@ public class ContactDeletionTest extends TestBase{
         app.getContactHelper().click(By.xpath("//input[@value='Delete']"));
         app.getContactHelper().checkAlertPresent();
         app.getContactHelper().checkMessageCorrect();
-        app.getNavigationHelper().goToHomePage();
+        app.goTo().homePage();
 
         List<ContactData> after = app.getContactHelper().getContactList();
         before.remove(before.size()-1);
