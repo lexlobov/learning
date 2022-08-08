@@ -55,6 +55,7 @@ public class GroupHelper extends BaseHelper {
         createNewGroup();
         fillGroupForm(group);
         submitNewGroup();
+        groupCash = null;
     }
 
     public void modify(GroupData group) {
@@ -62,6 +63,7 @@ public class GroupHelper extends BaseHelper {
         click(By.name("edit"));
         fillGroupForm(group);
         click(By.name("update"));
+        groupCash = null;
         checkIfGroupUpdated();
         returnToGroupPage();
     }
@@ -81,20 +83,27 @@ public class GroupHelper extends BaseHelper {
 
 
     public Groups all() {
-        Groups groups = new Groups();
+        if (groupCash !=null){
+            return new Groups(groupCash);
+        }
+
+        groupCash = new Groups();
         List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements){
             String  name = element.getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             GroupData group = new GroupData().withName(name).withId(id);
-            groups.add(group);
+            groupCash.add(group);
         }
-        return groups;
+        return new Groups(groupCash);
     }
+
+    private Groups groupCash = null;
 
     public void delete(GroupData group) {
         selectGroupById(group.getId());
         clickDeleteButton();
+        groupCash = null;
         checkDeletedSuccessfully();
         returnToGroupPage();
     }
