@@ -16,7 +16,7 @@ public class ContactModificationTest extends TestBase{
     private void ensurePreconditions() {
         if(! app.contact().isThereAContact()){
             app.goTo().contactPage();
-            app.contact().create(new ContactData.Builder()
+            app.contact().create(new ContactData()
                     .withFirstName("Andreas")
                     .withLastName("Corvus")
                     .withEmail("andreas@maik.ru")
@@ -30,14 +30,13 @@ public class ContactModificationTest extends TestBase{
         ensurePreconditions();
         List<ContactData> before = app.contact().list();
         app.contact().clickCheckboxInList(before.size()-1);
-        ContactData contact = new ContactData.Builder()
+        ContactData contact = new ContactData()
                 .withId(before.get(before.size()-1).getId())
                 .withMobilePhone("5550173")
                 .withFirstName("Elvis")
                 .withLastName("Prado")
                 .withEmail("Elvis@maik.ru")
-                .withAddress("Pushkina street")
-                .build();
+                .withAddress("Pushkina street");
         app.contact().clickEditButtonInTable(before.size()-1);
         app.contact().fillContactForm(contact, false, groupName);
         app.contact().clickUpdateButton();

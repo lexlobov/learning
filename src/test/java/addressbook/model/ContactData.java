@@ -26,121 +26,117 @@ public class ContactData {
 
     private String group;
 
-
-
-    public static class Builder{
+    
        private ContactData newContact;
 
-       public Builder(){
+       public ContactData(){
            newContact = new ContactData();
        }
 
-       public Builder withId(int id){
+       public ContactData withId(int id){
            newContact.id = id;
            return this;
        }
 
-       public Builder withFirstName(String firstName){
+       public ContactData withFirstName(String firstName){
            newContact.firstName = firstName;
            return this;
        }
 
-       public Builder withMiddleName(String middleName){
+       public ContactData withMiddleName(String middleName){
            newContact.middleName = middleName;
            return this;
        }
 
-       public Builder withLastName(String lastName){
+       public ContactData withLastName(String lastName){
            newContact.lastName = lastName;
            return this;
        }
 
-       public Builder withNickname(String nickname){
+       public ContactData withNickname(String nickname){
            newContact.nickname = nickname;
            return this;
        }
 
-       public Builder title(String title){
+       public ContactData title(String title){
            newContact.title = title;
            return this;
        }
 
-       public Builder withCompany(String company){
+       public ContactData withCompany(String company){
            newContact.company = company;
            return this;
        }
 
-       public Builder withAddress(String address){
+       public ContactData withAddress(String address){
            newContact.address = address;
            return this;
        }
 
-       public Builder withHomePhone(String homePhone){
+       public ContactData withHomePhone(String homePhone){
            newContact.homePhone = homePhone;
            return this;
        }
 
-       public Builder withMobilePhone(String mobilePhone){
+       public ContactData withMobilePhone(String mobilePhone){
            newContact.mobilePhone = mobilePhone;
            return this;
        }
 
-       public Builder withWorkPhone(String workPhone){
+       public ContactData withWorkPhone(String workPhone){
            newContact.workPhone = workPhone;
            return this;
        }
 
-       public Builder withFaxPhone(String faxPhone){
+       public ContactData withFaxPhone(String faxPhone){
            newContact.faxPhone = faxPhone;
            return this;
        }
 
-       public Builder withEmail(String email){
+       public ContactData withEmail(String email){
            newContact.email = email;
            return this;
        }
 
-       public Builder withEmail2(String email2){
+       public ContactData withEmail2(String email2){
            newContact.email2 = email2;
            return this;
        }
 
-       public Builder withEmail3(String email3){
+       public ContactData withEmail3(String email3){
            newContact.email3 = email3;
            return this;
        }
 
-       public Builder withHomePage(String homePage){
+       public ContactData withHomePage(String homePage){
            newContact.homePage = homePage;
            return this;
        }
 
-       public Builder withSecondaryAddress(String secondaryAddress){
+       public ContactData withSecondaryAddress(String secondaryAddress){
            newContact.secondaryAddress = secondaryAddress;
            return this;
        }
 
-       public Builder withHome(String home){
+       public ContactData withHome(String home){
            newContact.home = home;
            return this;
        }
 
-       public Builder withNotes(String notes){
+       public ContactData withNotes(String notes){
            newContact.notes = notes;
            return this;
        }
 
-       public Builder withGroup(String group){
+       public ContactData withGroup(String group){
            newContact.group = group;
            return this;
        }
 
-       public ContactData build(){
-           return newContact;
-       }
 
 
-   }
+
+   
 
     public String getNickname() {
         return nickname;
@@ -260,7 +256,7 @@ public class ContactData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return Objects.equals(firstName, that.firstName) && Objects.equals(middleName, that.middleName) && Objects.equals(lastName, that.lastName) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(email, that.email) && Objects.equals(nickname, that.nickname) && Objects.equals(title, that.title) && Objects.equals(company, that.company) && Objects.equals(address, that.address) && Objects.equals(homePhone, that.homePhone) && Objects.equals(workPhone, that.workPhone) && Objects.equals(faxPhone, that.faxPhone) && Objects.equals(email2, that.email2) && Objects.equals(email3, that.email3) && Objects.equals(homePage, that.homePage) && Objects.equals(secondaryAddress, that.secondaryAddress) && Objects.equals(home, that.home) && Objects.equals(notes, that.notes) && Objects.equals(group, that.group);
+        return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(middleName, that.middleName) && Objects.equals(lastName, that.lastName) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(email, that.email) && Objects.equals(nickname, that.nickname) && Objects.equals(title, that.title) && Objects.equals(company, that.company) && Objects.equals(address, that.address) && Objects.equals(homePhone, that.homePhone) && Objects.equals(workPhone, that.workPhone) && Objects.equals(faxPhone, that.faxPhone) && Objects.equals(email2, that.email2) && Objects.equals(email3, that.email3) && Objects.equals(homePage, that.homePage) && Objects.equals(secondaryAddress, that.secondaryAddress) && Objects.equals(home, that.home) && Objects.equals(notes, that.notes) && Objects.equals(group, that.group);
     }
 
     @Override

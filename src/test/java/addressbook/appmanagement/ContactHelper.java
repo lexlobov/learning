@@ -1,6 +1,7 @@
 package addressbook.appmanagement;
 
 import addressbook.model.ContactData;
+import addressbook.model.Contacts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,11 +10,15 @@ import org.testng.Assert;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.testng.AssertJUnit.assertEquals;
 
 public class ContactHelper extends BaseHelper {
+    
+    private Contacts contactCache = null;
 
     public ContactHelper(WebDriver driver) {
 
@@ -32,7 +37,7 @@ public class ContactHelper extends BaseHelper {
         driver.findElements(By.xpath("//img[@title='Edit']")).get(index).click();
     }
 
-    public void fillContactForm(ContactData contactData, boolean creation, String groupName) {
+    public void fillContactForm(ContactData contactData, boolean creation, String contactName) {
         typeTextIntoField((By.name("firstname")), contactData.getFirstName());
         typeTextIntoField((By.name("middlename")), contactData.getMiddleName());
         typeTextIntoField((By.name("lastname")), contactData.getLastName());
@@ -42,12 +47,12 @@ public class ContactHelper extends BaseHelper {
         if (creation){
             List<WebElement> elements = driver.findElements(By.tagName("option"));
             if (!(elements.size()>1)){
-                new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(groupName);
+                new Select(driver.findElement(By.name("new_contact"))).selectByVisibleText(contactName);
             } else {
-                new Select(driver.findElement(By.name("new_group"))).selectByIndex(0);
+                new Select(driver.findElement(By.name("new_contact"))).selectByIndex(0);
             }
         } else {
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
+            Assert.assertFalse(isElementPresent(By.name("new_contact")));
         }
 
     }
@@ -77,14 +82,13 @@ public class ContactHelper extends BaseHelper {
         }
     }
 
-    public void create(ContactData.Builder newContact, String groupName) {
-        fillContactForm(new ContactData.Builder()
+    public void create(ContactData newContact, String contactName) {
+        fillContactForm(new ContactData()
                 .withFirstName("John")
                 .withEmail2("asdasd@dsf.er")
                 .withLastName("Smith")
                 .withMobilePhone("15464654454")
-                .withGroup("test1g")
-                .build(), true, groupName);
+                .withGroup("test1g"), true, contactName);
         submitNewContact();
     }
 
@@ -101,16 +105,44 @@ public class ContactHelper extends BaseHelper {
             String address = element.findElements(By.tagName("td")).get(3).getText();
             String email = element.findElements(By.tagName("td")).get(4).getText();
             String phoneNumber = element.findElements(By.tagName("td")).get(5).getText();
-            contacts.add(new ContactData.Builder()
+            contacts.add(new ContactData()
                     .withId(id)
                     .withFirstName(firstName)
                     .withLastName(lastName)
                     .withAddress(address)
                     .withEmail(email)
-                    .withMobilePhone(phoneNumber)
-                    .build());
+                    .withMobilePhone(phoneNumber));
         }
         return contacts;
+    }
+
+    public Contacts all() {
+        if (contactCache != null) {
+            return new Contacts(contactCache);
+        }
+
+        contactCache = new Contacts();
+        Set<ContactData> contacts = new HashSet<>();
+        List<WebElement> elements = driver.findElements(By.name("entry"));
+        for (WebElement element : elements) {
+            int id = Integer.parseInt(element.findElement(By.name("selected[]")).getAttribute("id"));
+
+            String lastName = element.findElements(By.tagName("td")).get(1).getText();
+
+            String firstName = element.findElements(By.tagName("td")).get(2).getText();
+
+            String address = element.findElements(By.tagName("td")).get(3).getText();
+            String email = element.findElements(By.tagName("td")).get(4).getText();
+            String phoneNumber = element.findElements(By.tagName("td")).get(5).getText();
+            contacts.add(new ContactData()
+                    .withId(id)
+                    .withFirstName(firstName)
+                    .withLastName(lastName)
+                    .withAddress(address)
+                    .withEmail(email)
+                    .withMobilePhone(phoneNumber));
+        }
+            return new Contacts(contactCache);
     }
 
     public void clickCheckboxInList(int index){
