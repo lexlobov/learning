@@ -31,6 +31,7 @@ public class ContactHelper extends BaseHelper {
 
     public void submitNewContact() {
         click(By.xpath("//input[@type='submit']"));
+        contactCache = null;
     }
 
     public void clickEditButtonInTable(int index){
@@ -47,12 +48,12 @@ public class ContactHelper extends BaseHelper {
         if (creation){
             List<WebElement> elements = driver.findElements(By.tagName("option"));
             if (!(elements.size()>1)){
-                new Select(driver.findElement(By.name("new_contact"))).selectByVisibleText(contactName);
+                new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contactName);
             } else {
-                new Select(driver.findElement(By.name("new_contact"))).selectByIndex(0);
+                new Select(driver.findElement(By.name("new_group"))).selectByIndex(0);
             }
         } else {
-            Assert.assertFalse(isElementPresent(By.name("new_contact")));
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
 
     }
@@ -90,6 +91,7 @@ public class ContactHelper extends BaseHelper {
                 .withMobilePhone("15464654454")
                 .withGroup("test1g"), true, contactName);
         submitNewContact();
+        contactCache = null;
     }
 
     public List<ContactData> list() {
@@ -122,7 +124,6 @@ public class ContactHelper extends BaseHelper {
         }
 
         contactCache = new Contacts();
-        Set<ContactData> contacts = new HashSet<>();
         List<WebElement> elements = driver.findElements(By.name("entry"));
         for (WebElement element : elements) {
             int id = Integer.parseInt(element.findElement(By.name("selected[]")).getAttribute("id"));
@@ -134,7 +135,7 @@ public class ContactHelper extends BaseHelper {
             String address = element.findElements(By.tagName("td")).get(3).getText();
             String email = element.findElements(By.tagName("td")).get(4).getText();
             String phoneNumber = element.findElements(By.tagName("td")).get(5).getText();
-            contacts.add(new ContactData()
+            contactCache.add(new ContactData()
                     .withId(id)
                     .withFirstName(firstName)
                     .withLastName(lastName)
@@ -142,7 +143,8 @@ public class ContactHelper extends BaseHelper {
                     .withEmail(email)
                     .withMobilePhone(phoneNumber));
         }
-            return new Contacts(contactCache);
+        return new Contacts(contactCache);
+
     }
 
     public void clickCheckboxInList(int index){

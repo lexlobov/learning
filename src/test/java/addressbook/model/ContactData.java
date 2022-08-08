@@ -23,113 +23,106 @@ public class ContactData {
     private String secondaryAddress;
     private String home;
     private String notes;
-
     private String group;
 
     
-       private ContactData newContact;
-
-       public ContactData(){
-           newContact = new ContactData();
-       }
-
        public ContactData withId(int id){
-           newContact.id = id;
+           this.id = id;
            return this;
        }
 
        public ContactData withFirstName(String firstName){
-           newContact.firstName = firstName;
+           this.firstName = firstName;
            return this;
        }
 
        public ContactData withMiddleName(String middleName){
-           newContact.middleName = middleName;
+           this.middleName = middleName;
            return this;
        }
 
        public ContactData withLastName(String lastName){
-           newContact.lastName = lastName;
+           this.lastName = lastName;
            return this;
        }
 
        public ContactData withNickname(String nickname){
-           newContact.nickname = nickname;
+           this.nickname = nickname;
            return this;
        }
 
        public ContactData title(String title){
-           newContact.title = title;
+           this.title = title;
            return this;
        }
 
        public ContactData withCompany(String company){
-           newContact.company = company;
+           this.company = company;
            return this;
        }
 
        public ContactData withAddress(String address){
-           newContact.address = address;
+           this.address = address;
            return this;
        }
 
        public ContactData withHomePhone(String homePhone){
-           newContact.homePhone = homePhone;
+           this.homePhone = homePhone;
            return this;
        }
 
        public ContactData withMobilePhone(String mobilePhone){
-           newContact.mobilePhone = mobilePhone;
+           this.mobilePhone = mobilePhone;
            return this;
        }
 
        public ContactData withWorkPhone(String workPhone){
-           newContact.workPhone = workPhone;
+           this.workPhone = workPhone;
            return this;
        }
 
        public ContactData withFaxPhone(String faxPhone){
-           newContact.faxPhone = faxPhone;
+           this.faxPhone = faxPhone;
            return this;
        }
 
        public ContactData withEmail(String email){
-           newContact.email = email;
+           this.email = email;
            return this;
        }
 
        public ContactData withEmail2(String email2){
-           newContact.email2 = email2;
+           this.email2 = email2;
            return this;
        }
 
        public ContactData withEmail3(String email3){
-           newContact.email3 = email3;
+           this.email3 = email3;
            return this;
        }
 
        public ContactData withHomePage(String homePage){
-           newContact.homePage = homePage;
+           this.homePage = homePage;
            return this;
        }
 
        public ContactData withSecondaryAddress(String secondaryAddress){
-           newContact.secondaryAddress = secondaryAddress;
+           this.secondaryAddress = secondaryAddress;
            return this;
        }
 
        public ContactData withHome(String home){
-           newContact.home = home;
+           this.home = home;
            return this;
        }
 
        public ContactData withNotes(String notes){
-           newContact.notes = notes;
+           this.notes = notes;
            return this;
        }
 
        public ContactData withGroup(String group){
-           newContact.group = group;
+           this.group = group;
            return this;
        }
 
