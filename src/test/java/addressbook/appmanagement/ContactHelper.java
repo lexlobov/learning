@@ -60,6 +60,7 @@ public class ContactHelper extends BaseHelper {
 
     public void clickUpdateButton(){
         click(By.name("update"));
+        contactCache = null;
     }
 
     public void checkAlertPresent(){
@@ -149,5 +150,10 @@ public class ContactHelper extends BaseHelper {
 
     public void clickCheckboxInList(int index){
         driver.findElements(By.name("selected[]")).get(index).click();
+    }
+
+    public void delete(int id) {
+        driver.findElement(By.cssSelector("input[id='" + id + "']")).click();
+        contactCache = null;
     }
 }
