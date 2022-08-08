@@ -1,13 +1,11 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
-import addressbook.model.Contacts;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.List;
 import java.util.Set;
 
 public class ContactDeletionTest extends TestBase{

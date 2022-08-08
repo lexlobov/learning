@@ -1,12 +1,8 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
-import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.util.Comparator;
-import java.util.List;
 import java.util.Set;
 
 
