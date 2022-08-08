@@ -1,11 +1,14 @@
 package addressbook.tests;
 
 import addressbook.model.GroupData;
+import addressbook.model.Groups;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-import java.util.Set;
+
 
 public class GroupDeletionTest extends TestBase {
 
@@ -20,15 +23,13 @@ public class GroupDeletionTest extends TestBase {
 
     @Test
     public void groupDeletionTest(){
-        Set<GroupData> before = app.group().all();
+        Groups before = app.group().all();
         GroupData deletedGroup = before.iterator().next();
         app.goTo().groupPage();
         app.group().delete(deletedGroup);
-        Set<GroupData> after = app.group().all();
+        Groups after = app.group().all();
         Assert.assertEquals(after.size(), before.size()-1);
-
-        before.remove(deletedGroup);
-        Assert.assertEquals(before, after);
+        assertThat(after, equalTo(before.without(deletedGroup)));
 
     }
 
