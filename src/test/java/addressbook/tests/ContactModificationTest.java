@@ -1,13 +1,12 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
-import org.testng.Assert;
+import addressbook.model.Contacts;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ContactModificationTest extends TestBase{
 
@@ -29,26 +28,23 @@ public class ContactModificationTest extends TestBase{
     @Test
     public void contactModificationTest() throws InterruptedException {
         ensurePreconditions();
-        Set<ContactData> before = app.contact().all();
-        ContactData modifiedGroup = before.iterator().next();
+        Contacts before = app.contact().all();
+        ContactData modifiedContact = before.iterator().next();
         app.contact().clickCheckboxInList(before.size()-1);
         ContactData contact = new ContactData()
-                .withId(modifiedGroup.getId())
+                .withId(modifiedContact.getId())
                 .withMobilePhone("5550173")
                 .withFirstName("Elvis")
                 .withLastName("Prado")
                 .withEmail("Elvis@maik.ru")
                 .withAddress("Pushkina street");
-        app.contact().clickEditButtonInTable(modifiedGroup.getId());
+        app.contact().clickEditButtonInTable(modifiedContact.getId());
         app.contact().fillContactForm(contact, false, groupName);
         app.contact().clickUpdateButton();
         app.contact().checkContactUpdated();
         app.goTo().homePage();
-
-        Set<ContactData> after = app.contact().all();
-        before.remove(modifiedGroup);
-        before.add(contact);
-        Assert.assertEquals(after, before);
+        Contacts after = app.contact().all();
+        assertThat("", after, equalTo(before.without(modifiedContact).withAdded(contact)));
 
     }
 

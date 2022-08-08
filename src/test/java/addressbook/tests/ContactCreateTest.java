@@ -1,9 +1,10 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-import java.util.Set;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
+import addressbook.model.Contacts;
 
 
 public class ContactCreateTest extends TestBase {
@@ -11,7 +12,7 @@ public class ContactCreateTest extends TestBase {
     private final String groupName = "test";
     @Test
     public void createContactTest() throws InterruptedException {
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.contact().all();
         app.goTo().contactPage();
         ContactData contact = new ContactData()
                 .withFirstName("Zohn")
@@ -24,10 +25,9 @@ public class ContactCreateTest extends TestBase {
         app.contact().checkNewContactAdded();
         app.goTo().homePage();
 
-        Set<ContactData> after = app.contact().all();
-        contact.withId(after.stream().mapToInt(c->c.getId()).max().getAsInt());
-        before.add(contact);
-        Assert.assertEquals(before, after);
+        Contacts after = app.contact().all();
+        assertThat("Lists of elements should be equal", after, equalTo(
+                before.withAdded(contact.withId(after.stream().mapToInt(c->c.getId()).max().getAsInt()))));
 
     }
 }

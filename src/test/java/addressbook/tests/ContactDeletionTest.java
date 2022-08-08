@@ -1,12 +1,13 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
+import addressbook.model.Contacts;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
 
-import java.util.Set;
 
 public class ContactDeletionTest extends TestBase{
 
@@ -28,16 +29,16 @@ public class ContactDeletionTest extends TestBase{
     @Test
     public void deleteContactTest() throws InterruptedException {
         ensurePreconditions();
-        Set<ContactData> before =  app.contact().all();
+        Contacts before =  app.contact().all();
         ContactData deletedContact = before.iterator().next();
         app.contact().delete(deletedContact.getId());
         app.contact().click(By.xpath("//input[@value='Delete']"));
         app.contact().checkAlertPresent();
         app.contact().checkMessageCorrect();
         app.goTo().homePage();
-        Set<ContactData> after = app.contact().all();
+        Contacts after = app.contact().all();
         before.remove(deletedContact);
-        Assert.assertEquals(before, after);
+        assertThat(after, equalTo(before.without(deletedContact)));
     }
 
 
