@@ -32,11 +32,12 @@ public class ContactHelper extends BaseHelper {
         contactCache = null;
     }
 
-    public void clickEditButtonInTable(int index){
-        driver.findElements(By.xpath("//img[@title='Edit']")).get(index).click();
+    public void clickEditButtonInTable(int id){
+        driver.findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();
+        contactCache = null;
     }
 
-    public void fillContactForm(ContactData contactData, boolean creation, String contactName) {
+    public void fillContactForm(ContactData contactData, boolean creation, String groupName) throws InterruptedException {
         typeTextIntoField((By.name("firstname")), contactData.getFirstName());
         typeTextIntoField((By.name("middlename")), contactData.getMiddleName());
         typeTextIntoField((By.name("lastname")), contactData.getLastName());
@@ -46,7 +47,7 @@ public class ContactHelper extends BaseHelper {
         if (creation){
             List<WebElement> elements = driver.findElements(By.tagName("option"));
             if (!(elements.size()>1)){
-                new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contactName);
+                new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(groupName);
             } else {
                 new Select(driver.findElement(By.name("new_group"))).selectByIndex(0);
             }
@@ -82,7 +83,7 @@ public class ContactHelper extends BaseHelper {
         }
     }
 
-    public void create(ContactData newContact, String contactName) {
+    public void create(ContactData newContact, String contactName) throws InterruptedException {
         fillContactForm(new ContactData()
                 .withFirstName("John")
                 .withEmail2("asdasd@dsf.er")

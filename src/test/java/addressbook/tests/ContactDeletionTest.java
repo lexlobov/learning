@@ -13,7 +13,7 @@ public class ContactDeletionTest extends TestBase{
     private final String groupName = "test";
 
     @BeforeMethod
-    private void ensurePreconditions() {
+    private void ensurePreconditions() throws InterruptedException {
         if(app.contact().list().size() == 0){
             app.goTo().contactPage();
             app.contact().create(new ContactData()
@@ -26,11 +26,10 @@ public class ContactDeletionTest extends TestBase{
     }
 
     @Test
-    public void deleteContactTest(){
+    public void deleteContactTest() throws InterruptedException {
         ensurePreconditions();
         Set<ContactData> before =  app.contact().all();
         ContactData deletedContact = before.iterator().next();
-        int index = before.size()-1;
         app.contact().delete(deletedContact.getId());
         app.contact().click(By.xpath("//input[@value='Delete']"));
         app.contact().checkAlertPresent();

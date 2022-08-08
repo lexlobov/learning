@@ -10,7 +10,7 @@ public class ContactCreateTest extends TestBase {
 
     private final String groupName = "test";
     @Test
-    public void createContactTest()  {
+    public void createContactTest() throws InterruptedException {
         Set<ContactData> before = app.contact().all();
         app.goTo().contactPage();
         ContactData contact = new ContactData()
