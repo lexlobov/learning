@@ -71,7 +71,7 @@ public class GroupHelper extends BaseHelper {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public int getGroupCount() {
+    public int count() {
         return driver.findElements(By.name("selected[]")).size();
     }
 
