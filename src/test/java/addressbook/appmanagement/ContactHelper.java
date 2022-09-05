@@ -158,4 +158,8 @@ public class ContactHelper extends BaseHelper {
         driver.findElement(By.cssSelector("input[id='" + id + "']")).click();
         contactCache = null;
     }
+
+    public ContactData infoFromEditForm(ContactData contact) {
+        return new ContactData();
+    }
 }
