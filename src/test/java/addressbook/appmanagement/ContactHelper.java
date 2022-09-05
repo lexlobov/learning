@@ -97,16 +97,17 @@ public class ContactHelper extends BaseHelper {
     public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<>();
         List<WebElement> elements = driver.findElements(By.name("entry"));
+        
         for (WebElement element : elements){
+
             int id = Integer.parseInt(element.findElement(By.name("selected[]")).getAttribute("id"));
+            List<WebElement> rowValues = element.findElements(By.tagName("td"));
 
-            String lastName = element.findElements(By.tagName("td")).get(1).getText();
-
-            String firstName = element.findElements(By.tagName("td")).get(2).getText();
-
-            String address = element.findElements(By.tagName("td")).get(3).getText();
-            String email = element.findElements(By.tagName("td")).get(4).getText();
-            String phoneNumber = element.findElements(By.tagName("td")).get(5).getText();
+            String lastName = rowValues.get(1).getText();
+            String firstName = rowValues.get(2).getText();
+            String address = rowValues.get(3).getText();
+            String email = rowValues.get(4).getText();
+            String phoneNumber = rowValues.get(5).getText();
             contacts.add(new ContactData()
                     .withId(id)
                     .withFirstName(firstName)
