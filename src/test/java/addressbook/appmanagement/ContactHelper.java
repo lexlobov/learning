@@ -119,6 +119,10 @@ public class ContactHelper extends BaseHelper {
         return contacts;
     }
 
+    public int count(){
+        return driver.findElements(By.name("entry")).size();
+    }
+
     public Contacts all() {
         if (contactCache != null) {
             return new Contacts(contactCache);
