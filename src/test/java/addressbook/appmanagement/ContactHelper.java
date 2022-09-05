@@ -37,7 +37,7 @@ public class ContactHelper extends BaseHelper {
         contactCache = null;
     }
 
-    public void fillContactForm(ContactData contactData, boolean creation, String groupName) throws InterruptedException {
+    public void fillContactForm(ContactData contactData, boolean creation, String groupName) {
         typeTextIntoField((By.name("firstname")), contactData.getFirstName());
         typeTextIntoField((By.name("middlename")), contactData.getMiddleName());
         typeTextIntoField((By.name("lastname")), contactData.getLastName());
@@ -107,14 +107,16 @@ public class ContactHelper extends BaseHelper {
             String firstName = rowValues.get(2).getText();
             String address = rowValues.get(3).getText();
             String email = rowValues.get(4).getText();
-            String phoneNumber = rowValues.get(5).getText();
+            String[] phones = rowValues.get(5).getText().split("\n");
             contacts.add(new ContactData()
                     .withId(id)
                     .withFirstName(firstName)
                     .withLastName(lastName)
                     .withAddress(address)
                     .withEmail(email)
-                    .withMobilePhone(phoneNumber));
+                    .withMobilePhone(phones[1])
+                    .withHomePhone(phones[0])
+                    .withWorkPhone(phones[2]));
         }
         return contacts;
     }
@@ -140,7 +142,7 @@ public class ContactHelper extends BaseHelper {
             String firstName = rowValues.get(2).getText();
             String address = rowValues.get(3).getText();
             String email = rowValues.get(4).getText();
-            String phoneNumber = rowValues.get(5).getText();
+            String[] phones = rowValues.get(5).getText().split("\n");
 
             contactCache.add(new ContactData()
                     .withId(id)
@@ -148,7 +150,9 @@ public class ContactHelper extends BaseHelper {
                     .withLastName(lastName)
                     .withAddress(address)
                     .withEmail(email)
-                    .withMobilePhone(phoneNumber));
+                    .withMobilePhone(phones[1])
+                    .withHomePhone(phones[0])
+                    .withWorkPhone(phones[2]));
         }
         return new Contacts(contactCache);
 
@@ -164,6 +168,21 @@ public class ContactHelper extends BaseHelper {
     }
 
     public ContactData infoFromEditForm(ContactData contact) {
-        return new ContactData();
+        clickEditButtonInTable(contact.getId());
+        String firstName = driver.findElement(By.name("firstname")).getAttribute("value");
+        String lastName = driver.findElement(By.name("lastname")).getAttribute("value");
+        String homePhone = driver.findElement(By.name("home")).getAttribute("value");
+        String mobilePhone = driver.findElement(By.name("mobile")).getAttribute("value");
+        String workPhone = driver.findElement(By.name("work")).getAttribute("value");
+        driver.navigate().back();
+        return new ContactData()
+                .withId(contact.getId())
+                .withFirstName(firstName)
+                .withLastName(lastName)
+                .withHomePhone(homePhone)
+                .withMobilePhone(mobilePhone)
+                .withWorkPhone(workPhone);
     }
+
+
 }
