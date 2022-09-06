@@ -6,6 +6,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.equalTo;
 import addressbook.model.Contacts;
 
+import java.io.File;
+
 
 public class ContactCreateTest extends TestBase {
 
@@ -14,12 +16,14 @@ public class ContactCreateTest extends TestBase {
     public void createContactTest() throws InterruptedException {
         Contacts before = app.contact().all();
         app.goTo().contactPage();
+        File photo = new File("src/test/resources/js.jpg");
         ContactData contact = new ContactData()
                 .withFirstName("Zohn")
                 .withEmail("asdasd@dsf.er")
                 .withLastName("Zmith")
-                .withMobilePhone("15464654454")
-                .withAddress("Southern hemisphere");
+                .withAllPhones("15464654454")
+                .withAddress("Southern hemisphere")
+                .withPhoto(photo);
         app.contact().fillContactForm(contact, true, groupName);
         app.contact().submitNewContact();
         app.contact().checkNewContactAdded();
@@ -30,4 +34,13 @@ public class ContactCreateTest extends TestBase {
                 before.withAdded(contact.withId(after.stream().mapToInt(c->c.getId()).max().getAsInt()))));
 
     }
+
+//    @Test
+//    public void testCurrentDir(){
+//        File currentDir = new File(".");
+//        System.out.println(currentDir.getAbsolutePath());
+//        File photo = new File("src/test/resources/js.jpg");
+//        System.out.println(photo.getAbsolutePath());
+//        System.out.println(photo.exists());
+//    }
 }

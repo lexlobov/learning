@@ -41,9 +41,10 @@ public class ContactHelper extends BaseHelper {
         typeTextIntoField((By.name("firstname")), contactData.getFirstName());
         typeTextIntoField((By.name("middlename")), contactData.getMiddleName());
         typeTextIntoField((By.name("lastname")), contactData.getLastName());
-        typeTextIntoField((By.name("mobile")), contactData.getMobilePhone());
+        typeTextIntoField((By.name("mobile")), contactData.getAllPhones());
         typeTextIntoField((By.name("email")), contactData.getEmail());
         typeTextIntoField((By.name("address")), contactData.getAddress());
+        attach(By.name("photo"), contactData.getPhoto());
         if (creation){
             List<WebElement> elements = driver.findElements(By.tagName("option"));
             if (!(elements.size()>1)){
@@ -107,16 +108,14 @@ public class ContactHelper extends BaseHelper {
             String firstName = rowValues.get(2).getText();
             String address = rowValues.get(3).getText();
             String email = rowValues.get(4).getText();
-            String[] phones = rowValues.get(5).getText().split("\n");
+            String allPhones = rowValues.get(5).getText();
             contacts.add(new ContactData()
                     .withId(id)
                     .withFirstName(firstName)
                     .withLastName(lastName)
                     .withAddress(address)
                     .withEmail(email)
-                    .withMobilePhone(phones[1])
-                    .withHomePhone(phones[0])
-                    .withWorkPhone(phones[2]));
+                    .withAllPhones(allPhones));
         }
         return contacts;
     }

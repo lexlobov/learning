@@ -33,7 +33,7 @@ public class ContactModificationTest extends TestBase{
         app.contact().clickCheckboxInList(before.size()-1);
         ContactData contact = new ContactData()
                 .withId(modifiedContact.getId())
-                .withMobilePhone("5550173")
+                .withAllPhones("5550173")
                 .withFirstName("Elvis")
                 .withLastName("Prado")
                 .withEmail("Elvis@maik.ru")

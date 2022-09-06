@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
+import java.io.File;
+
 
 public class BaseHelper {
     WebDriver driver;
@@ -19,6 +21,12 @@ public class BaseHelper {
                 driver.findElement(locator).clear();
                 driver.findElement(locator).sendKeys(text);
             }
+        }
+    }
+
+    public void attach(By locator, File file){
+        if (file != null){
+            driver.findElement(locator).sendKeys(file.getAbsolutePath());
         }
     }
 
