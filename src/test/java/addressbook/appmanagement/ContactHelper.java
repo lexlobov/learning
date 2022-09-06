@@ -83,7 +83,7 @@ public class ContactHelper extends BaseHelper {
         }
     }
 
-    public void create(ContactData newContact, String contactName) throws InterruptedException {
+    public void create(ContactData newContact, String contactName){
         fillContactForm(new ContactData()
                 .withFirstName("John")
                 .withEmail2("asdasd@dsf.er")
@@ -142,7 +142,7 @@ public class ContactHelper extends BaseHelper {
             String firstName = rowValues.get(2).getText();
             String address = rowValues.get(3).getText();
             String email = rowValues.get(4).getText();
-            String[] phones = rowValues.get(5).getText().split("\n");
+            String allPhones = rowValues.get(5).getText();
 
             contactCache.add(new ContactData()
                     .withId(id)
@@ -150,9 +150,7 @@ public class ContactHelper extends BaseHelper {
                     .withLastName(lastName)
                     .withAddress(address)
                     .withEmail(email)
-                    .withMobilePhone(phones[1])
-                    .withHomePhone(phones[0])
-                    .withWorkPhone(phones[2]));
+                    .withAllPhones(allPhones));
         }
         return new Contacts(contactCache);
 

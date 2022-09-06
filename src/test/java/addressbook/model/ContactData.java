@@ -24,6 +24,7 @@ public class ContactData {
     private String home;
     private String notes;
     private String group;
+    private String allPhones;
 
     
        public ContactData withId(int id){
@@ -126,11 +127,15 @@ public class ContactData {
            return this;
        }
 
+    public ContactData withAllPhones(String allPhones) {
+           this.allPhones = allPhones;
+           return this;
+    }
 
 
-
-   
-
+    public String getAllPhones() {
+        return allPhones;
+    }
     public String getNickname() {
         return nickname;
     }
@@ -257,4 +262,6 @@ public class ContactData {
     public int hashCode() {
         return Objects.hash(id, firstName, middleName, lastName, mobilePhone, email, nickname, title, company, address, homePhone, workPhone, faxPhone, email2, email3, homePage, secondaryAddress, home, notes, group);
     }
+
+
 }
