@@ -4,6 +4,8 @@ import addressbook.model.GroupData;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 
 import java.io.File;
@@ -45,11 +47,21 @@ public class GroupDataGenerator {
             saveCsv(groups, new File(file));
         } else if (format.equals("xml")){
             saveXml(groups, new File(file));
-        } else {
+        } else if (format.equals("json")){
+            saveJson(groups, new File(file));
+        }else {
             System.out.println("Unrecognized format, enter csv or xml");
         }
 
 
+    }
+
+    private void saveJson(List<GroupData> groups, File file) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(groups);
+        Writer writer = new FileWriter(file);
+        writer.write(json);
+        writer.close();
     }
 
     private void saveXml(List<GroupData> groups, File file) throws IOException {

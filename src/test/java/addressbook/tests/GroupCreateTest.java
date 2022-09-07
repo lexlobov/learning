@@ -2,7 +2,9 @@ package addressbook.tests;
 
 import addressbook.model.GroupData;
 import addressbook.model.Groups;
+import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
+import org.openqa.selenium.json.TypeToken;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -23,22 +25,28 @@ public class GroupCreateTest extends TestBase {
 //        list.add(new Object[] {new GroupData().withName("test 2").withHeader("header 2").withFooter("footer 3")});
 //        list.add(new Object[] {new GroupData().withName("test 3").withHeader("header 3").withFooter("footer 2")});
 //        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.csv")));
-        BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.xml"));
-        String xml = "";
+/*        BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.xml"));
+        String xml = ""; */
+        BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.json"));
+        String json = "";
         String line = reader.readLine();
         while (line != null){
 //            String[] split = line.split(";");
 //            list.add(new Object[] {new GroupData().withName(split[0]).withHeader(split[1]).withFooter(split[2])});
 
-            xml += line;
+/*            xml += line; */
+            json += line;
             line = reader.readLine();
         }
+        Gson gson = new Gson();
+        List<GroupData> groups = (List<GroupData>) gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType());
+        return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
 
-        XStream xStream = new XStream();
+/*        XStream xStream = new XStream();
         xStream.allowTypes(new Class[] {GroupData.class}); // Без этой строки ничего не работает. Решение https://stackoverflow.com/questions/30812293/com-thoughtworks-xstream-security-forbiddenclassexception
         xStream.processAnnotations(GroupData.class);
         List<GroupData> groups = (List<GroupData>) xStream.fromXML(xml);
-        return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
+        return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator(); */
 
     }
 
