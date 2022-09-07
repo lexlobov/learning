@@ -35,7 +35,7 @@ public class GroupCreateTest extends TestBase {
         }
 
         XStream xStream = new XStream();
-        xStream.allowTypes(new Class[] {GroupData.class}); // Без этой строки ничего не работает
+        xStream.allowTypes(new Class[] {GroupData.class}); // Без этой строки ничего не работает. Решение https://stackoverflow.com/questions/30812293/com-thoughtworks-xstream-security-forbiddenclassexception
         xStream.processAnnotations(GroupData.class);
         List<GroupData> groups = (List<GroupData>) xStream.fromXML(xml);
         return groups.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
