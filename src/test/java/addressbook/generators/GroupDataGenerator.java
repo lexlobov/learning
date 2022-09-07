@@ -42,7 +42,7 @@ public class GroupDataGenerator {
     private void save(List<GroupData> groups, File file) throws IOException {
         Writer writer = new FileWriter(file);
         for (GroupData group : groups){
-            writer.write(String.format("%s;%S;%s", group.getGroupName(), group.getGroupHeader(), group.getGroupFooter()));
+            writer.write(String.format("%s;%S;%s\n", group.getGroupName(), group.getGroupHeader(), group.getGroupFooter()));
         }
         writer.close();
     }
