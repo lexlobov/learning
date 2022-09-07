@@ -21,10 +21,6 @@ public class GroupCreateTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validGroupsJson() throws IOException {
-//
-//        list.add(new Object[] {new GroupData().withName("test 1").withHeader("header 1").withFooter("footer 1")});
-//        list.add(new Object[] {new GroupData().withName("test 2").withHeader("header 2").withFooter("footer 3")});
-//        list.add(new Object[] {new GroupData().withName("test 3").withHeader("header 3").withFooter("footer 2")});
         BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/groups.json"));
         String json = "";
         String line = reader.readLine();
