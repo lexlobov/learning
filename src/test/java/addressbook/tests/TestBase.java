@@ -8,7 +8,8 @@ import org.testng.annotations.BeforeSuite;
 
 public class TestBase {
 
-    public static final AppManager app = new AppManager(BrowserType.CHROME);
+    public static final AppManager app
+            = new AppManager(BrowserType.CHROME);
 
     @BeforeSuite
     public void setUp(){
