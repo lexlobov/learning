@@ -5,7 +5,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.Browser;
-
 public class AppManager {
 
 
@@ -19,21 +18,23 @@ public class AppManager {
     NavigationHelper navigationHelper;
     SessionHelper sessionHelper;
     ContactHelper contactHelper;
-    private Browser  browser;
+    private String  browser;
 
-    public AppManager(Browser  browser) {
+    public AppManager(String   browser) {
 
         this.browser = browser;
     }
 
     public void init() {
-        if (browser.equals(Browser.CHROME)){
+        if (browser.equals(Browser.CHROME.browserName())){
             driver = new ChromeDriver();
-        } else if (browser.equals(Browser.FIREFOX)){
+        } else if (browser.equals(Browser.FIREFOX.browserName())){
             driver = new FirefoxDriver();
         } else {
             driver = new EdgeDriver();
         }
+
+        System.out.println(Browser.FIREFOX.browserName());
 
         driver.get(addressBookUrl);
         groupHelper = new GroupHelper(driver);
