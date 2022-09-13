@@ -5,7 +5,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.Browser;
-import org.openqa.selenium.remote.BrowserType;
 
 public class AppManager {
 
@@ -20,17 +19,17 @@ public class AppManager {
     NavigationHelper navigationHelper;
     SessionHelper sessionHelper;
     ContactHelper contactHelper;
-    private String  browser;
+    private Browser  browser;
 
-    public AppManager(String  browser) {
+    public AppManager(Browser  browser) {
 
         this.browser = browser;
     }
 
     public void init() {
-        if (browser.equals(BrowserType.CHROME)){
+        if (browser.equals(Browser.CHROME)){
             driver = new ChromeDriver();
-        } else if (browser.equals(BrowserType.FIREFOX)){
+        } else if (browser.equals(Browser.FIREFOX)){
             driver = new FirefoxDriver();
         } else {
             driver = new EdgeDriver();
