@@ -34,8 +34,6 @@ public class AppManager {
             driver = new EdgeDriver();
         }
 
-        System.out.println(Browser.FIREFOX.browserName());
-
         driver.get(addressBookUrl);
         groupHelper = new GroupHelper(driver);
         navigationHelper = new NavigationHelper(driver);
