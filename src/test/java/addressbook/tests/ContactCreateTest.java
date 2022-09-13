@@ -13,8 +13,10 @@ public class ContactCreateTest extends TestBase {
 
     private final String groupName = "test";
     @Test
-    public void createContactTest() throws InterruptedException {
+    public void createContactTest() {
+        app.goTo().homePage();
         Contacts before = app.contact().all();
+        System.out.println(before);
         app.goTo().contactPage();
         File photo = new File("src/test/resources/js.jpg");
         ContactData contact = new ContactData()
@@ -30,6 +32,7 @@ public class ContactCreateTest extends TestBase {
         app.goTo().homePage();
 
         Contacts after = app.contact().all();
+        System.out.println(after);
         assertThat("Lists of elements should be equal", after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt(c->c.getId()).max().getAsInt()))));
 
