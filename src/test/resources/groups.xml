@@ -1,17 +1,20 @@
 <list>
-  <group>
+  <addressbook.model.GroupData>
+    <id>2147483647</id>
     <groupName>tst 0</groupName>
     <groupHeader>Header 0</groupHeader>
     <groupFooter>Footer 0</groupFooter>
-  </group>
-  <group>
+  </addressbook.model.GroupData>
+  <addressbook.model.GroupData>
+    <id>2147483647</id>
     <groupName>tst 1</groupName>
     <groupHeader>Header 1</groupHeader>
     <groupFooter>Footer 1</groupFooter>
-  </group>
-  <group>
+  </addressbook.model.GroupData>
+  <addressbook.model.GroupData>
+    <id>2147483647</id>
     <groupName>tst 2</groupName>
     <groupHeader>Header 2</groupHeader>
     <groupFooter>Footer 2</groupFooter>
-  </group>
+  </addressbook.model.GroupData>
 </list>
