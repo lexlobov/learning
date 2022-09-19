@@ -107,14 +107,14 @@ public class ContactHelper extends BaseHelper {
             String lastName = rowValues.get(1).getText();
             String firstName = rowValues.get(2).getText();
             String address = rowValues.get(3).getText();
-            String email = rowValues.get(4).getText();
+            String allEmails = rowValues.get(4).getText();
             String allPhones = rowValues.get(5).getText();
             contacts.add(new ContactData()
                     .withId(id)
                     .withFirstName(firstName)
                     .withLastName(lastName)
                     .withAddress(address)
-                    .withEmail(email)
+                    .withAllEmails(allEmails)
                     .withAllPhones(allPhones));
         }
         return contacts;
@@ -172,6 +172,8 @@ public class ContactHelper extends BaseHelper {
         String mobilePhone = driver.findElement(By.name("mobile")).getAttribute("value");
         String workPhone = driver.findElement(By.name("work")).getAttribute("value");
         String email = driver.findElement(By.name("email")).getAttribute("value");
+        String email2 = driver.findElement(By.name("email2")).getAttribute("value");
+        String email3 = driver.findElement(By.name("email3")).getAttribute("value");
         driver.navigate().back();
         return new ContactData()
                 .withId(contact.getId())
@@ -180,7 +182,9 @@ public class ContactHelper extends BaseHelper {
                 .withHomePhone(homePhone)
                 .withMobilePhone(mobilePhone)
                 .withWorkPhone(workPhone)
-                .withEmail(email);
+                .withEmail(email)
+                .withEmail2(email2)
+                .withEmail3(email3);
     }
 
 
