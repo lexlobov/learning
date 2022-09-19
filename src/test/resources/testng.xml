@@ -4,8 +4,8 @@
     <test name="Groups" >
         <classes>
             <class name="addressbook.tests.GroupCreateTest" />
-            <class name="addressbook.tests.GroupModificationTest"></class>
-            <class name="addressbook.tests.GroupDeletionTest"></class>
+            <class name="addressbook.tests.GroupModificationTest"/>
+            <class name="addressbook.tests.GroupDeletionTest"/>
         </classes>
     </test>
 
@@ -15,6 +15,7 @@
             <class name="addressbook.tests.ContactModificationTest"/>
             <class name="addressbook.tests.ContactDeletionTest"/>
             <class name="addressbook.tests.ContactPhoneTest"/>
+            <class name="addressbook.tests.ContactEmailTest"/>
         </classes>
     </test>
 </suite>

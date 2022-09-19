@@ -171,6 +171,7 @@ public class ContactHelper extends BaseHelper {
         String homePhone = driver.findElement(By.name("home")).getAttribute("value");
         String mobilePhone = driver.findElement(By.name("mobile")).getAttribute("value");
         String workPhone = driver.findElement(By.name("work")).getAttribute("value");
+        String email = driver.findElement(By.name("email")).getAttribute("value");
         driver.navigate().back();
         return new ContactData()
                 .withId(contact.getId())
@@ -178,7 +179,8 @@ public class ContactHelper extends BaseHelper {
                 .withLastName(lastName)
                 .withHomePhone(homePhone)
                 .withMobilePhone(mobilePhone)
-                .withWorkPhone(workPhone);
+                .withWorkPhone(workPhone)
+                .withEmail(email);
     }
 
 
