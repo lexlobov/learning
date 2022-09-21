@@ -9,49 +9,5 @@
     "workPhone": "98745550",
     "email2": "0@yahoo.com",
     "email3": "0@gmail.com"
-  },
-  {
-    "firstName": "Alex 1",
-    "lastName": "Jones 1",
-    "mobilePhone": "+79854842251",
-    "email": "1@email.com",
-    "address": "Kolotushkina street 1",
-    "homePhone": "85-522-1",
-    "workPhone": "98745551",
-    "email2": "1@yahoo.com",
-    "email3": "1@gmail.com"
-  },
-  {
-    "firstName": "Alex 2",
-    "lastName": "Jones 2",
-    "mobilePhone": "+79854842252",
-    "email": "2@email.com",
-    "address": "Kolotushkina street 2",
-    "homePhone": "85-522-2",
-    "workPhone": "98745552",
-    "email2": "2@yahoo.com",
-    "email3": "2@gmail.com"
-  },
-  {
-    "firstName": "Alex 3",
-    "lastName": "Jones 3",
-    "mobilePhone": "+79854842253",
-    "email": "3@email.com",
-    "address": "Kolotushkina street 3",
-    "homePhone": "85-522-3",
-    "workPhone": "98745553",
-    "email2": "3@yahoo.com",
-    "email3": "3@gmail.com"
-  },
-  {
-    "firstName": "Alex 4",
-    "lastName": "Jones 4",
-    "mobilePhone": "+79854842254",
-    "email": "4@email.com",
-    "address": "Kolotushkina street 4",
-    "homePhone": "85-522-4",
-    "workPhone": "98745554",
-    "email2": "4@yahoo.com",
-    "email3": "4@gmail.com"
   }
 ]

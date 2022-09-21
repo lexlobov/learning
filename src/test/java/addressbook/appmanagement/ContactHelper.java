@@ -39,10 +39,13 @@ public class ContactHelper extends BaseHelper {
 
     public void fillContactForm(ContactData contactData, boolean creation, String groupName) {
         typeTextIntoField((By.name("firstname")), contactData.getFirstName());
-        typeTextIntoField((By.name("middlename")), contactData.getMiddleName());
         typeTextIntoField((By.name("lastname")), contactData.getLastName());
-        typeTextIntoField((By.name("mobile")), contactData.getAllPhones());
+        typeTextIntoField((By.name("mobile")), contactData.getMobilePhone());
+        typeTextIntoField((By.name("work")), contactData.getWorkPhone());
+        typeTextIntoField((By.name("home")), contactData.getHomePhone());
         typeTextIntoField((By.name("email")), contactData.getEmail());
+        typeTextIntoField((By.name("email2")), contactData.getEmail2());
+        typeTextIntoField((By.name("email3")), contactData.getEmail3());
         typeTextIntoField((By.name("address")), contactData.getAddress());
         attach(By.name("photo"), contactData.getPhoto());
         if (creation){
@@ -140,7 +143,7 @@ public class ContactHelper extends BaseHelper {
             String lastName = rowValues.get(1).getText();
             String firstName = rowValues.get(2).getText();
             String address = rowValues.get(3).getText();
-            String email = rowValues.get(4).getText();
+            String allEmails = rowValues.get(4).getText();
             String allPhones = rowValues.get(5).getText();
 
             contactCache.add(new ContactData()
@@ -148,7 +151,7 @@ public class ContactHelper extends BaseHelper {
                     .withFirstName(firstName)
                     .withLastName(lastName)
                     .withAddress(address)
-                    .withEmail(email)
+                    .withAllEmails(allEmails)
                     .withAllPhones(allPhones));
         }
         return new Contacts(contactCache);
