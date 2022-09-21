@@ -56,7 +56,9 @@ public class ContactHelper extends BaseHelper {
                 new Select(driver.findElement(By.name("new_group"))).selectByIndex(0);
             }
         } else {
+            attach(By.name("photo"), contactData.getPhoto());
             Assert.assertFalse(isElementPresent(By.name("new_group")));
+
         }
 
     }
@@ -88,12 +90,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void create(ContactData newContact, String contactName){
-        fillContactForm(new ContactData()
-                .withFirstName("John")
-                .withEmail2("asdasd@dsf.er")
-                .withLastName("Smith")
-                .withMobilePhone("15464654454")
-                .withGroup("test1g"), true, contactName);
+        fillContactForm(newContact, true, contactName);
         submitNewContact();
         contactCache = null;
     }
