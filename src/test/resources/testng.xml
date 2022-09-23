@@ -17,6 +17,7 @@
             <class name="addressbook.tests.ContactPhoneTest"/>
             <class name="addressbook.tests.ContactEmailTest"/>
             <class name="addressbook.tests.DbConnectionTest"/>
+            <class name="addressbook.tests.HbConnectionTest"/>
         </classes>
     </test>
 </suite>

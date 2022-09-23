@@ -3,38 +3,60 @@ package addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
 import java.io.File;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 
 @XStreamAlias("contact")
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
 
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id;
     @Expose
+    @Column(name = "firstname")
     private String firstName;
     @Expose
+    @Column(name = "lastname")
     private String lastName;
     @Expose
+    @Column(name = "mobile")
     private String mobilePhone;
     @Expose
+    @Column(name = "email")
     private String email;
     @Expose
+    @Column(name = "address")
     private String address;
     @Expose
+    @Column(name = "home")
     private String homePhone;
     @Expose
+    @Column(name = "work")
     private String workPhone;
     @Expose
+    @Column(name = "email2")
     private String email2;
     @Expose
+    @Column(name = "email3")
     private String email3;
+    @Transient
     private String allPhones;
+    @Transient
     private String group;
+    @Transient
     private String allEmails;
-    private File photo;
+    @Column(name = "photo")
+    private String photo;
+    @Column(name = "deprecated")
+    private Timestamp deprecated;
 
 
 
@@ -45,11 +67,11 @@ public class ContactData {
 
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
