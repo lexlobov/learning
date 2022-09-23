@@ -22,6 +22,7 @@ public class AppManager {
     NavigationHelper navigationHelper;
     SessionHelper sessionHelper;
     ContactHelper contactHelper;
+    DbHelper dbHelper;
     private final String  browser;
 
     public AppManager(String   browser) {
@@ -32,6 +33,7 @@ public class AppManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+        dbHelper = new DbHelper();
         if (browser.equals(Browser.CHROME.browserName())){
             driver = new ChromeDriver();
         } else if (browser.equals(Browser.FIREFOX.browserName())){
@@ -41,6 +43,7 @@ public class AppManager {
         }
 
         driver.get(properties.getProperty("web.baseUrl"));
+
         groupHelper = new GroupHelper(driver);
         navigationHelper = new NavigationHelper(driver);
         sessionHelper = new SessionHelper(driver);
@@ -64,5 +67,9 @@ public class AppManager {
 
     public NavigationHelper goTo() {
         return navigationHelper;
+    }
+
+    public DbHelper db(){
+        return dbHelper;
     }
 }
