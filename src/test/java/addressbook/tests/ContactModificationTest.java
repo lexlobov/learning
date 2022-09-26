@@ -2,9 +2,12 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
+import addressbook.model.Groups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -34,7 +37,7 @@ public class ContactModificationTest extends TestBase{
     }
 
     @Test
-    public void contactModificationTest() {
+    public void contactModificationTest() throws IOException {
         ensurePreconditions();
         Contacts before = app.contact().all();
         ContactData modifiedContact = before.iterator().next();
@@ -50,7 +53,8 @@ public class ContactModificationTest extends TestBase{
                 .withAddress("Pushkina street")
                 .withWorkPhone("48484848484")
                 .withHomePhone("8878787")
-                .withAddress("powepeopwwepro");
+                .withAddress("powepeopwwepro")
+                .withPhoto(new File("src/test/resources/js.jpg"));
 
         app.contact().clickEditButtonInTable(modifiedContact.getId());
         app.contact().fillContactForm(contact, false, groupName);
@@ -72,6 +76,9 @@ public class ContactModificationTest extends TestBase{
         assertThat("", after, equalTo(before.without(modifiedContact).withAdded(contact)));
 
     }
+
+
+
     private String mergeEmails(ContactData contact) {
         return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
                 .stream().filter(s -> ! s.equals(""))

@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.Type;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -70,7 +71,7 @@ public class ContactData {
         return new File(photo);
     }
 
-    public ContactData withPhoto(File photo) {
+    public ContactData withPhoto(File photo) throws IOException {
         this.photo = photo.getPath();
         return this;
     }
