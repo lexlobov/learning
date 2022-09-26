@@ -38,7 +38,7 @@ public class ContactModificationTest extends TestBase{
     @Test
     public void contactModificationTest() throws IOException {
         ensurePreconditions();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
         app.contact().clickCheckboxInList(before.size()-1);
         ContactData contact = new ContactData()
@@ -59,7 +59,7 @@ public class ContactModificationTest extends TestBase{
         app.contact().clickUpdateButton();
         app.contact().checkContactUpdated();
         app.goTo().homePage();
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         contact = contact
                 .withAllPhones(mergePhones(contact))
                 .withId(after.stream().mapToInt(c->c.getId()).max().getAsInt())

@@ -80,7 +80,7 @@ public class ContactCreateTest extends TestBase {
     @Test(dataProvider = "validContactsJson")
     public void createContactTest(ContactData contact) throws InterruptedException {
         app.goTo().homePage();
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         app.goTo().contactPage();
         File photo = new File("src/test/resources/js.jpg");
         app.contact().fillContactForm(contact, true);
@@ -89,7 +89,7 @@ public class ContactCreateTest extends TestBase {
         app.goTo().homePage();
 
 
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         ContactData addedContact = contact
                 .withAllPhones(mergePhones(contact))
                 .withId(after.stream().mapToInt(c->c.getId()).max().getAsInt())

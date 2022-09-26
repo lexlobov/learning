@@ -28,14 +28,14 @@ public class ContactDeletionTest extends TestBase{
     @Test
     public void deleteContactTest() throws InterruptedException {
         ensurePreconditions();
-        Contacts before =  app.contact().all();
+        Contacts before =  app.db().contacts();
         ContactData deletedContact = before.iterator().next();
         app.contact().delete(deletedContact.getId());
         app.contact().click(By.xpath("//input[@value='Delete']"));
         app.contact().checkAlertPresent();
         app.contact().checkMessageCorrect();
         app.goTo().homePage();
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         before.remove(deletedContact);
         assertThat(after, equalTo(before.without(deletedContact)));
     }

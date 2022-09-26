@@ -35,8 +35,8 @@ public class GroupData {
     public GroupData() {
     }
 
-    public Set<ContactData> getContacts() {
-        return contacts;
+    public Contacts getContacts() {
+        return new Contacts(contacts);
     }
 
     @Override
