@@ -1,9 +1,6 @@
 package addressbook.tests;
 
-import addressbook.model.Groups;
 import org.testng.annotations.Test;
-
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;

@@ -4,10 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Type;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Objects;
