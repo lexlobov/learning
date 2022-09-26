@@ -9,7 +9,9 @@ import org.hibernate.annotations.Type;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @XStreamAlias("contact")
@@ -50,12 +52,11 @@ public class ContactData {
     private String email3;
     @Transient
     private String allPhones;
-    @Transient
-    private String group;
+    @ManyToMany
+    @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
     @Transient
     private String allEmails;
-    @Column(name = "photo")
-    private String photo;
     @Column(name = "deprecated")
     private Timestamp deprecated;
 
@@ -66,14 +67,8 @@ public class ContactData {
         return this;
     }
 
-
-    public File getPhoto() {
-        return new File(photo);
-    }
-
-    public ContactData withPhoto(File photo) throws IOException {
-        this.photo = photo.getPath();
-        return this;
+    public Groups getGroups() {
+        return new Groups(groups);
     }
 
     public ContactData withId(int id){
@@ -122,13 +117,21 @@ public class ContactData {
            return this;
        }
 
-       public ContactData withEmail3(String email3){
-           this.email3 = email3;
-           return this;
-       }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactData that = (ContactData) o;
+        return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(email, that.email) && Objects.equals(address, that.address) && Objects.equals(homePhone, that.homePhone) && Objects.equals(workPhone, that.workPhone) && Objects.equals(email2, that.email2) && Objects.equals(email3, that.email3) && Objects.equals(allPhones, that.allPhones) && Objects.equals(groups, that.groups) && Objects.equals(allEmails, that.allEmails) && Objects.equals(deprecated, that.deprecated);
+    }
 
-       public ContactData withGroup(String group){
-           this.group = group;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, mobilePhone, email, address, homePhone, workPhone, email2, email3, allPhones, groups, allEmails, deprecated);
+    }
+
+    public ContactData withEmail3(String email3){
+           this.email3 = email3;
            return this;
        }
 
@@ -171,24 +174,8 @@ public class ContactData {
     public String getEmail() {
         return email;
     }
-    public String getGroup() {
-        return group;
-    }
     public int getId() {
         return id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ContactData that = (ContactData) o;
-        return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(email, that.email) && Objects.equals(address, that.address) && Objects.equals(homePhone, that.homePhone) && Objects.equals(workPhone, that.workPhone) && Objects.equals(email2, that.email2) && Objects.equals(email3, that.email3) && Objects.equals(allPhones, that.allPhones) && Objects.equals(group, that.group) && Objects.equals(allEmails, that.allEmails) && Objects.equals(photo, that.photo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, mobilePhone, email, address, homePhone, workPhone, email2, email3, allPhones, group, allEmails, photo);
     }
 
     @Override
@@ -205,9 +192,7 @@ public class ContactData {
                 ", email2='" + email2 + '\'' +
                 ", email3='" + email3 + '\'' +
                 ", allPhones='" + allPhones + '\'' +
-                ", group='" + group + '\'' +
                 ", allEmails='" + allEmails + '\'' +
-                ", photo=" + photo +
                 '}';
     }
 

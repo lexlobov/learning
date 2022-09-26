@@ -20,8 +20,7 @@ public class ContactDeletionTest extends TestBase{
             app.contact().create(new ContactData()
                     .withFirstName("Andreas")
                     .withLastName("Corvus")
-                    .withEmail("andreas@maik.ru")
-                    .withGroup("test"), groupName);
+                    .withEmail("andreas@maik.ru"), groupName);
             app.contact().click(By.xpath("//a[text()='home page']"));
         }
     }

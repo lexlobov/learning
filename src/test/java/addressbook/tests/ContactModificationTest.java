@@ -27,7 +27,6 @@ public class ContactModificationTest extends TestBase{
                     .withLastName("Corvus")
                     .withEmail("andreas@maik.ru")
                     .withAddress("Hryushkina street")
-                    .withGroup("test")
                     .withHomePhone("464984984")
                     .withWorkPhone("656654654654")
                     .withMobilePhone("5984894984984898944")
@@ -53,11 +52,10 @@ public class ContactModificationTest extends TestBase{
                 .withAddress("Pushkina street")
                 .withWorkPhone("48484848484")
                 .withHomePhone("8878787")
-                .withAddress("powepeopwwepro")
-                .withPhoto(new File("src/test/resources/js.jpg"));
+                .withAddress("powepeopwwepro");
 
         app.contact().clickEditButtonInTable(modifiedContact.getId());
-        app.contact().fillContactForm(contact, false, groupName);
+        app.contact().fillContactForm(contact, false);
         app.contact().clickUpdateButton();
         app.contact().checkContactUpdated();
         app.goTo().homePage();

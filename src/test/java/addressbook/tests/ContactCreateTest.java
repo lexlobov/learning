@@ -83,7 +83,7 @@ public class ContactCreateTest extends TestBase {
         Contacts before = app.contact().all();
         app.goTo().contactPage();
         File photo = new File("src/test/resources/js.jpg");
-        app.contact().fillContactForm(contact, true, groupName);
+        app.contact().fillContactForm(contact, true);
         app.contact().submitNewContact();
         app.contact().checkNewContactAdded();
         app.goTo().homePage();

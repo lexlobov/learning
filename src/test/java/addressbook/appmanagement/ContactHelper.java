@@ -37,7 +37,7 @@ public class ContactHelper extends BaseHelper {
         contactCache = null;
     }
 
-    public void fillContactForm(ContactData contactData, boolean creation, String groupName) {
+    public void fillContactForm(ContactData contactData, boolean creation) {
         typeTextIntoField((By.name("firstname")), contactData.getFirstName());
         typeTextIntoField((By.name("lastname")), contactData.getLastName());
         typeTextIntoField((By.name("mobile")), contactData.getMobilePhone());
@@ -47,16 +47,13 @@ public class ContactHelper extends BaseHelper {
         typeTextIntoField((By.name("email2")), contactData.getEmail2());
         typeTextIntoField((By.name("email3")), contactData.getEmail3());
         typeTextIntoField((By.name("address")), contactData.getAddress());
-        attach(By.name("photo"), contactData.getPhoto());
         if (creation){
             List<WebElement> elements = driver.findElements(By.tagName("option"));
             if (!(elements.size()>1)){
-                new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(groupName);
             } else {
                 new Select(driver.findElement(By.name("new_group"))).selectByIndex(0);
             }
         } else {
-            attach(By.name("photo"), contactData.getPhoto());
             Assert.assertFalse(isElementPresent(By.name("new_group")));
 
         }
@@ -90,7 +87,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void create(ContactData newContact, String contactName){
-        fillContactForm(newContact, true, contactName);
+        fillContactForm(newContact, true);
         submitNewContact();
         contactCache = null;
     }
