@@ -84,12 +84,12 @@ public class GroupCreateTestWithDb extends  TestBase {
     @Test
     public void groupCreationNegativeTest(){
         app.goTo().groupPage();
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         GroupData group = new GroupData().withName("test2\'");
         app.group().create(group);
         app.group().returnToGroupPage();
         assertThat(app.group().count(), equalTo(before.size()));
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after, equalTo(before));
     }
 }
