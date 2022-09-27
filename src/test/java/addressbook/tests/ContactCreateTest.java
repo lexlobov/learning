@@ -91,18 +91,12 @@ public class ContactCreateTest extends TestBase {
 
         Contacts after = app.db().contacts();
         ContactData addedContact = contact
-                .withAllPhones(mergePhones(contact))
-                .withId(after.stream().mapToInt(c->c.getId()).max().getAsInt())
-                .withAllEmails(mergeEmails(contact))
-                .withEmail(null)
-                .withEmail2(null)
-                .withEmail3(null)
-                .withHomePhone(null)
-                .withMobilePhone(null)
-                .withWorkPhone(null);
+                .withId(after.stream().mapToInt(c->c.getId()).max().getAsInt());
 
-        Contacts beforeWithAddedContact = before.withAdded(addedContact);
-        assertThat("Lists of elements should be equal", after, equalTo(beforeWithAddedContact));
+
+        //Contacts beforeWithAddedContact = before.withAdded(addedContact);
+
+        assertThat("Lists of elements should be equal", after, equalTo(before.withAdded(addedContact)));
 
     }
 

@@ -4,6 +4,7 @@ import addressbook.model.ContactData;
 import addressbook.model.Contacts;
 import addressbook.model.GroupData;
 import addressbook.model.Groups;
+import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -22,6 +23,7 @@ public class DbHelper {
         sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
 
+    @Transactional
     public Groups groups(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -31,10 +33,11 @@ public class DbHelper {
         return new Groups(result);
     }
 
+    @Transactional
     public Contacts contacts(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<ContactData> result = session.createQuery("from ContactData").list();
+        List<ContactData> result = session.createQuery("from ContactData where deprecated = '000-00-00'").list();
         session.getTransaction().commit();
         session.close();
         return new Contacts(result);
