@@ -58,16 +58,8 @@ public class ContactModificationTest extends TestBase{
         app.contact().checkContactUpdated();
         app.goTo().homePage();
         Contacts after = app.db().contacts();
-        contact = contact
-                .withAllPhones(mergePhones(contact))
-                .withId(after.stream().mapToInt(c->c.getId()).max().getAsInt())
-                .withAllEmails(mergeEmails(contact))
-                .withEmail(null)
-                .withEmail2(null)
-                .withEmail3(null)
-                .withHomePhone(null)
-                .withMobilePhone(null)
-                .withWorkPhone(null);
+        contact = contact.withId(modifiedContact.getId());
+
 
         assertThat("", after, equalTo(before.without(modifiedContact).withAdded(contact)));
 
