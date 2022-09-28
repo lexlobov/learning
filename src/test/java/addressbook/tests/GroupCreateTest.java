@@ -74,7 +74,6 @@ public class GroupCreateTest extends TestBase {
         app.group().returnToGroupPage();
         Groups after = app.group().all();
         assertThat(after.size(), equalTo(before.size() + 1));
-        System.out.println(after);
         GroupData addedGroup = group
                 .withFooter(null)
                 .withHeader(null)
