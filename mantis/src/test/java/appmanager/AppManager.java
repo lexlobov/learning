@@ -15,9 +15,10 @@ public class AppManager {
 
 
 
-    WebDriver driver;
+    private WebDriver driver;
     private final Properties properties;
     private final String  browser;
+    private RegistrationHelper registrationHelper;
 
     public AppManager(String   browser) {
         this.browser = browser;
@@ -27,21 +28,12 @@ public class AppManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-        if (browser.equals(Browser.CHROME.browserName())){
-            driver = new ChromeDriver();
-        } else if (browser.equals(Browser.FIREFOX.browserName())){
-            driver = new FirefoxDriver();
-        } else {
-            driver = new EdgeDriver();
-        }
-
-        driver.get(properties.getProperty("web.baseUrl"));
     }
 
 
 
     public void stop() {
-        driver.quit();
+        if(driver !=null) driver.quit();
     }
     public HttpSession newSession(){
         return new HttpSession(this);
@@ -49,5 +41,27 @@ public class AppManager {
 
     public String getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    public RegistrationHelper registration() {
+        if(registrationHelper == null){
+            registrationHelper = new RegistrationHelper(this);
+        }
+        return registrationHelper;
+    }
+
+    public WebDriver getDriver() {
+        if (driver == null){
+            if (browser.equals(Browser.CHROME.browserName())){
+                driver = new ChromeDriver();
+            } else if (browser.equals(Browser.FIREFOX.browserName())){
+                driver = new FirefoxDriver();
+            } else {
+                driver = new EdgeDriver();
+            }
+            driver.get(properties.getProperty("web.baseUrl"));
+        }
+        return driver;
+
     }
 }
