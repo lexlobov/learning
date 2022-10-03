@@ -16,5 +16,12 @@ public class RegistrationHelper extends BaseHelper {
         typeTextIntoField(By.name("email"), email);
         click(By.xpath("//input[@type='submit']"));
     }
+
+    public void finish(String confirmationLink, String password) {
+        driver.get(confirmationLink);
+        typeTextIntoField(By.name("password"), password);
+        typeTextIntoField(By.name("password_confirm"), password);
+        click(By.cssSelector("input[value='UpdateUser']"));
+    }
 }
 
