@@ -1,5 +1,6 @@
 package appmanager;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -22,6 +23,9 @@ public class AppManager {
     private FtpHelper ftp;
     private MailHelper mailHelper;
 
+    private LoginHelper loginHelper;
+    private NavigationHelper navigationHelper;
+
     public AppManager(String   browser) {
         this.browser = browser;
         properties = new Properties();
@@ -32,7 +36,14 @@ public class AppManager {
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
     }
 
-
+    public boolean isAlbumOrientation(){
+        Dimension dimension = driver.manage().window().getSize();
+        float height = dimension.getHeight();
+        float width = dimension.getWidth();
+        float orientation = height / width;
+        if (orientation < 1) {return true;}
+        else return false;
+    }
 
     public void stop() {
         if(driver !=null) driver.quit();
@@ -72,6 +83,16 @@ public class AppManager {
             ftp = new FtpHelper(this);
         }
         return ftp;
+    }
+
+    public LoginHelper login(){
+        if (loginHelper == null) loginHelper = new LoginHelper(this);
+        return loginHelper;
+    }
+
+    public NavigationHelper navigate(){
+        if (navigationHelper == null) navigationHelper = new NavigationHelper(this);
+        return navigationHelper;
     }
 
     public MailHelper mail(){
