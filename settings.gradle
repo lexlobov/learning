@@ -1,3 +1,4 @@
 rootProject.name = 'learning'
 include 'mantis'
+include 'javastream'
 

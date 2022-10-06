@@ -58,7 +58,6 @@ public class PasswordChangeTest extends TestBase{
         app.navigate().clickResetUserPasswordButton();
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 20000l);
         String confirmationLink = findConfirmationLink(mailMessages, user1.getEmail());
-        System.out.println(confirmationLink);
         app.registration().finish(confirmationLink, newPassword);
         HttpSession session= app.newSession();
         assertThat(session.login(user1.getUsername(), newPassword), equalTo(true));

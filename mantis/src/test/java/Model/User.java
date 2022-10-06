@@ -18,9 +18,11 @@ public class User {
     @Column(name = "email")
     private String email;
     @Column(name = "password")
-    private String password;
+    private String passwordHash;
     @Column(name = "enabled")
     private int enabled;
+    @Column(name = "realname")
+    private String realname;
 
 
 
@@ -41,7 +43,7 @@ public class User {
     }
 
     public User withPassword(String password) {
-        this.password = password;
+        this.passwordHash = password;
         return this;
     }
 
@@ -65,8 +67,8 @@ public class User {
         return email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
     public int getEnabled() {
@@ -78,8 +80,8 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", realname=" + realname +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", enabled=" + enabled +
                 '}';
     }
@@ -89,11 +91,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && enabled == user.enabled && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
+        return id == user.id && enabled == user.enabled && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(passwordHash, user.passwordHash);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, email, password, enabled);
+        return Objects.hash(id, username, email, passwordHash, enabled, realname);
     }
 }
