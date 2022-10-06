@@ -25,6 +25,7 @@ public class AppManager {
 
     private LoginHelper loginHelper;
     private NavigationHelper navigationHelper;
+    private DbHelper dbHelper;
 
     public AppManager(String   browser) {
         this.browser = browser;
@@ -41,8 +42,7 @@ public class AppManager {
         float height = dimension.getHeight();
         float width = dimension.getWidth();
         float orientation = height / width;
-        if (orientation < 1) {return true;}
-        else return false;
+        return orientation < 1;
     }
 
     public void stop() {
@@ -61,6 +61,11 @@ public class AppManager {
             registrationHelper = new RegistrationHelper(this);
         }
         return registrationHelper;
+    }
+
+    public DbHelper db(){
+        if(dbHelper == null) dbHelper = new DbHelper();
+        return dbHelper;
     }
 
     public WebDriver getDriver() {

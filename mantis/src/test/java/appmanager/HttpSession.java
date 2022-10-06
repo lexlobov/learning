@@ -40,7 +40,8 @@ public class HttpSession {
         String body = getTextFrom(response);;
         Writer writer = new FileWriter("src/test/resources/temp/login_response.html");
         writer.write(body);
-        return body.contains(String.format("<span class=\"label hidden-xs label-default arrowed\">%s</span>", username));
+        boolean y = body.contains(String.format("<a href=\"/mantis/account_page.php\">%s ( John ) </a>", username));
+        return y;
     }
 
     public String getTextFrom(CloseableHttpResponse response) throws IOException{
@@ -59,6 +60,22 @@ public class HttpSession {
         writer.write(body);
         return body.contains(String.format("<span class=\"label hidden-xs label-default arrowed\">%s</span>", username));
 
+    }
+
+    public Boolean loginWithoutRealName(String username, String password) throws IOException {
+        HttpPost post = new HttpPost(app.getProperty("web.baseUrl") + "/login.php");
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("username", username));
+        params.add(new BasicNameValuePair("password", password));
+        params.add(new BasicNameValuePair("secure_session", "on"));
+        params.add(new BasicNameValuePair("return", "index.php"));
+        post.setEntity(new UrlEncodedFormEntity(params));
+        CloseableHttpResponse response = httpclient.execute(post);
+        String body = getTextFrom(response);;
+        Writer writer = new FileWriter("src/test/resources/temp/login_response.html");
+        writer.write(body);
+        boolean y = body.contains(String.format("<a href=\"/mantis/account_page.php\">%s</a>", username));
+        return y;
     }
 }
 

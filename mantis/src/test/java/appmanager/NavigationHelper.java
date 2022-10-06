@@ -1,6 +1,7 @@
 package appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -42,5 +43,10 @@ public class NavigationHelper extends BaseHelper{
             }
         }
         return false;
+    }
+
+    public void clickResetUserPasswordButton(){
+        List<WebElement> submitButtons = driver.findElements(By.xpath("//input[@type='submit']"));
+        submitButtons.get(1).click();
     }
 }
