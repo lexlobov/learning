@@ -2,6 +2,7 @@ package tests;
 
 import Model.MailMessage;
 import Model.User;
+import Model.Users;
 import appmanager.HttpSession;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -37,6 +38,13 @@ public class PasswordChangeTest extends TestBase{
         String adminUsername = app.getProperty("web.adminLogin");
         String adminPassword = app.getProperty("web.adminPassword");
 
+
+        Users users = app.db().usersSet();
+        User user1 = users.stream()
+                .filter(this::nonAdmin)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("No users for testing"));
+
         List<User> dbUsers = app.db().users();
         User user = dbUsers.stream()
                 .filter(this::nonAdmin)
@@ -46,14 +54,14 @@ public class PasswordChangeTest extends TestBase{
 
         app.login().start(adminUsername, adminPassword);
         app.navigate().toUsersPage();
-        assertThat(app.navigate().toTestedUserPage(user.getUsername()), equalTo(true));
+        assertThat(app.navigate().toTestedUserPage(user1.getUsername()), equalTo(true));
         app.navigate().clickResetUserPasswordButton();
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 20000l);
-        String confirmationLink = findConfirmationLink(mailMessages, user.getEmail());
+        String confirmationLink = findConfirmationLink(mailMessages, user1.getEmail());
         System.out.println(confirmationLink);
         app.registration().finish(confirmationLink, newPassword);
         HttpSession session= app.newSession();
-        assertThat(session.login(user.getUsername(), newPassword), equalTo(true));
+        assertThat(session.login(user1.getUsername(), newPassword), equalTo(true));
         //assertThat(session.isLoggedInAs(user.getUsername()), equalTo(true));
 
     }
