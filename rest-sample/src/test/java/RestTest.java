@@ -26,10 +26,8 @@ import java.util.Set;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-public class RestTest {
+public class RestTest extends TestBase {
 
-    final String baseUrl = "http://localhost/mantis/";
-    final String apiToken = "K_yAHD3aqx3VV_9ds70j-sn3Dyrs3VqQ";
     @Test
     public void testCreateIssue() throws IOException {
         Set<Issue> oldIssues = getIssues();
@@ -61,8 +59,8 @@ public class RestTest {
 //            JsonReader jsonReader = gson.newJsonReader(new InputStreamReader(
 //                    response.getEntity().getContent()
 //            ));
-        String json = Request.Post(baseUrl + "api/rest/issues")
-                .addHeader("Authorization", apiToken)
+        String json = Request.Post(properties.getProperty("web.baseUrl") + "api/rest/issues")
+                .addHeader("Authorization", properties.getProperty("web.apiToken"))
                 .bodyString(body, ContentType.APPLICATION_JSON)
                 .execute().returnContent().asString();
         JsonElement parsed = new JsonParser().parse(json);
@@ -83,7 +81,9 @@ public class RestTest {
     }
 
     private Set<Issue> getIssues() throws IOException {
-        String json = Request.Get(baseUrl + "api/rest/issues").addHeader("Authorization", apiToken).execute().returnContent().asString();
+        String json = Request.Get(properties.getProperty("web.baseUrl") + "api/rest/issues")
+                .addHeader("Authorization", properties.getProperty("web.apiToken"))
+                .execute().returnContent().asString();
         JsonElement parsed = new JsonParser().parse(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
         return new Gson().fromJson(issues, new TypeToken<Set<Issue>>(){}.getType());
