@@ -1,14 +1,31 @@
 package model;
 
+import jakarta.persistence.*;
+
+@Entity()
+@Table(name = "employees")
 public class EmployeeModel {
-    
+
+    @Column(name = "personal_id")
     private int personalId;
+    @Id
+    @Column(name = "user_id")
+    private int dbId;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastname;
+
+    @Column(name = "age")
     private int age;
+    @Column(name = "position")
     private String position;
     private OrganizationModel organization;
     private DepartmentModel department;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private int departmentId;
 
     public EmployeeModel(){
     }

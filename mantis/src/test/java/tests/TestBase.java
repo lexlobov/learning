@@ -3,6 +3,7 @@ package tests;
 import appmanager.AppManager;
 import org.openqa.selenium.remote.Browser;
 
+import org.testng.SkipException;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
@@ -25,5 +26,4 @@ public class TestBase {
         app.ftp().restore("config_inc.php.bak", "config_inc.php");
         app.stop();
     }
-
 }

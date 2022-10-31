@@ -1,13 +1,26 @@
 package model;
 
+import jakarta.persistence.*;
+
 import java.util.List;
 
+@Entity
+@Table(name = "orgs")
 public class OrganizationModel {
 
+    @Column(name = "registration_number")
     private int registrationNumber;
+    @Id
+    @Column(name = "org_id")
+    @OneToMany(mappedBy = "departments", fetch = FetchType.EAGER)
+    private int dbId;
+    @Column(name = "name")
     private String name;
+    @Column(name = "mission")
     private String mission;
+    @Transient
     private List<EmployeeModel> employees;
+    @Transient
     private List<DepartmentModel> departments;
 
 
@@ -54,5 +67,16 @@ public class OrganizationModel {
 
     public List<DepartmentModel> getDepartments() {
         return departments;
+    }
+
+    @Override
+    public String toString() {
+        return "OrganizationModel{" +
+                "registrationNumber=" + registrationNumber +
+                ", name='" + name + '\'' +
+                ", mission='" + mission + '\'' +
+                ", employees=" + employees +
+                ", departments=" + departments +
+                '}';
     }
 }
