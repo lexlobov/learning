@@ -18,6 +18,8 @@ public class ContactHelper extends BaseHelper {
     
     private Contacts contactCache = null;
 
+    public int groupId;
+
     public ContactHelper(WebDriver driver) {
 
         super(driver);
@@ -32,12 +34,16 @@ public class ContactHelper extends BaseHelper {
         contactCache = null;
     }
 
+    public void uploadPhoto(String filePath){
+        driver.findElement(By.name("photo")).sendKeys(filePath);
+    }
+
     public void clickEditButtonInTable(int id){
         driver.findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();
         contactCache = null;
     }
 
-    public void fillContactForm(ContactData contactData, boolean creation) {
+    public void fillContactForm(ContactData contactData, boolean creation, String groupName) {
         typeTextIntoField((By.name("firstname")), contactData.getFirstName());
         typeTextIntoField((By.name("lastname")), contactData.getLastName());
         typeTextIntoField((By.name("mobile")), contactData.getMobilePhone());
@@ -47,11 +53,16 @@ public class ContactHelper extends BaseHelper {
         typeTextIntoField((By.name("email2")), contactData.getEmail2());
         typeTextIntoField((By.name("email3")), contactData.getEmail3());
         typeTextIntoField((By.name("address")), contactData.getAddress());
+
         if (creation){
-            List<WebElement> elements = driver.findElements(By.tagName("option"));
+            List<WebElement> elements = driver.findElements(By.xpath("//select[@name='new_group']/option"));
+
             if (!(elements.size()>1)){
+
             } else {
-                new Select(driver.findElement(By.name("new_group"))).selectByIndex(0);
+                String  groupId = elements.stream().filter(e->e.getText().equals(groupName)).findFirst().get().getAttribute("value");
+                setGroupId(Integer.parseInt(groupId));
+                new Select(driver.findElement(By.name("new_group"))).selectByValue(groupId);
             }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -86,8 +97,8 @@ public class ContactHelper extends BaseHelper {
         }
     }
 
-    public void create(ContactData newContact, String contactName){
-        fillContactForm(newContact, true);
+    public void create(ContactData newContact, String groupname) {
+        fillContactForm(newContact, true, groupname);
         submitNewContact();
         contactCache = null;
     }
@@ -184,5 +195,11 @@ public class ContactHelper extends BaseHelper {
                 .withEmail3(email3);
     }
 
+    public int getGroupId() {
+        return groupId;
+    }
 
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
 }

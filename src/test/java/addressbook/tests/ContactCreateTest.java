@@ -2,6 +2,7 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import addressbook.model.GroupData;
+import addressbook.model.Groups;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
 import org.openqa.selenium.json.TypeToken;
@@ -24,10 +25,11 @@ import java.util.stream.Collectors;
 
 public class ContactCreateTest extends TestBase {
 
-    private final String groupName = "test";
+    private final String groupName = "tst 1";
+    private final String resourcePath = "src/test/resources/";
     @DataProvider
     public Iterator<Object[]> validContactsJson() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/contacts.json"));
+        BufferedReader reader = new BufferedReader(new FileReader(resourcePath+"contacts.json"));
         String json = "";
         String line = reader.readLine();
         while (line != null){
@@ -41,7 +43,7 @@ public class ContactCreateTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validContactsXml() throws IOException{
-        BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/contacts.xml"));
+        BufferedReader reader = new BufferedReader(new FileReader(resourcePath+"contacts.xml"));
         String xml = "";
         String line = reader.readLine();
         while (line != null){
@@ -58,7 +60,7 @@ public class ContactCreateTest extends TestBase {
     @DataProvider
     public Iterator<Object[]> validContactsCsv() throws IOException{
         List<Object[]> list = new ArrayList<Object[]>();
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.csv")));
+        BufferedReader reader = new BufferedReader(new FileReader(new File(resourcePath+"contacts.csv")));
         String line = reader.readLine();
         while (line != null){
             String[] split = line.split(";");
@@ -78,20 +80,24 @@ public class ContactCreateTest extends TestBase {
 
     }
     @Test(dataProvider = "validContactsJson")
-    public void createContactTest(ContactData contact) throws InterruptedException {
+    public void createContactTest(ContactData contact) {
         app.goTo().homePage();
         Contacts before = app.db().contacts();
         app.goTo().contactPage();
-        File photo = new File("src/test/resources/js.jpg");
-        app.contact().fillContactForm(contact, true);
+        File photo = new File(resourcePath+"js.jpg");
+        app.contact().fillContactForm(contact, true, groupName);
+        app.contact().uploadPhoto(photo.getAbsolutePath());
         app.contact().submitNewContact();
         app.contact().checkNewContactAdded();
         app.goTo().homePage();
-
+        GroupData group = app.db().groups().stream().filter(g->g.getId()==app.contact().getGroupId()).findFirst().get();
+        Groups groups = new Groups();
+        groups.add(group);
 
         Contacts after = app.db().contacts();
         ContactData addedContact = contact
-                .withId(after.stream().mapToInt(c->c.getId()).max().getAsInt());
+                .withId(after.stream().mapToInt(c->c.getId()).max().getAsInt())
+                .withGroups(groups);
 
 
         //Contacts beforeWithAddedContact = before.withAdded(addedContact);

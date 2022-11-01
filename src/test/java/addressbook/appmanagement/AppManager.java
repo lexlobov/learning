@@ -39,7 +39,7 @@ public class AppManager {
         } else if (browser.equals(Browser.FIREFOX.browserName())){
             driver = new FirefoxDriver();
         } else {
-            driver = new EdgeDriver();
+            driver = new ChromeDriver();
         }
 
         driver.get(properties.getProperty("web.baseUrl"));

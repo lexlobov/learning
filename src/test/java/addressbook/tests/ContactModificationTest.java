@@ -2,6 +2,7 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
+import addressbook.model.Groups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -14,7 +15,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ContactModificationTest extends TestBase{
 
-    private final String groupName = "test";
+    private final String groupName = "tst 1";
 
     @BeforeMethod
     private void ensurePreconditions() {
@@ -38,6 +39,7 @@ public class ContactModificationTest extends TestBase{
         ensurePreconditions();
         Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
+        Groups modifiedContactGroups = modifiedContact.getGroups();
         app.contact().clickCheckboxInList(before.size()-1);
         ContactData contact = new ContactData()
                 .withId(modifiedContact.getId())
@@ -53,7 +55,7 @@ public class ContactModificationTest extends TestBase{
                 .withAddress("powepeopwwepro");
 
         app.contact().clickEditButtonInTable(modifiedContact.getId());
-        app.contact().fillContactForm(contact, false);
+        app.contact().fillContactForm(contact, false, groupName);
         app.contact().clickUpdateButton();
         app.contact().checkContactUpdated();
         app.goTo().homePage();
@@ -61,7 +63,7 @@ public class ContactModificationTest extends TestBase{
         contact = contact.withId(modifiedContact.getId());
 
 
-        assertThat("", after, equalTo(before.without(modifiedContact).withAdded(contact)));
+        assertThat("", after, equalTo(before.without(modifiedContact).withAdded(contact.withGroups(modifiedContactGroups))));
 
     }
 

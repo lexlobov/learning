@@ -68,6 +68,10 @@ public class ContactData {
         return new Groups(groups);
     }
 
+    public ContactData withGroups(Groups groups){
+        this.groups=groups;
+        return this;
+    }
     public ContactData withId(int id){
            this.id = id;
            return this;
@@ -189,7 +193,9 @@ public class ContactData {
                 ", email2='" + email2 + '\'' +
                 ", email3='" + email3 + '\'' +
                 ", allPhones='" + allPhones + '\'' +
+                ", groups=" + groups +
                 ", allEmails='" + allEmails + '\'' +
+                ", deprecated=" + deprecated +
                 '}';
     }
 

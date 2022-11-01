@@ -22,6 +22,7 @@ public class AppManager {
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
+    private SoapHelper soap;
 
     private LoginHelper loginHelper;
     private NavigationHelper navigationHelper;
@@ -66,6 +67,11 @@ public class AppManager {
     public DbHelper db(){
         if(dbHelper == null) dbHelper = new DbHelper();
         return dbHelper;
+    }
+
+    public SoapHelper soap(){
+        if(soap == null) soap = new SoapHelper(this);
+        return soap;
     }
 
     public WebDriver getDriver() {
