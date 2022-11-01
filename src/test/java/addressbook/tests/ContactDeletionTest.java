@@ -11,7 +11,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ContactDeletionTest extends TestBase{
 
-    private final String groupName = "test";
+    private final String groupName = "tst 1";
 
     @BeforeMethod
     private void ensurePreconditions() throws InterruptedException {
@@ -21,7 +21,7 @@ public class ContactDeletionTest extends TestBase{
                     .withFirstName("Andreas")
                     .withLastName("Corvus")
                     .withEmail("andreas@maik.ru"), groupName);
-            app.contact().click(By.xpath("//a[text()='home page']"));
+            app.goTo().homePage();
         }
     }
 
@@ -31,7 +31,6 @@ public class ContactDeletionTest extends TestBase{
         Contacts before =  app.db().contacts();
         ContactData deletedContact = before.iterator().next();
         app.contact().delete(deletedContact.getId());
-        app.contact().click(By.xpath("//input[@value='Delete']"));
         app.contact().checkAlertPresent();
         app.contact().checkMessageCorrect();
         app.goTo().homePage();

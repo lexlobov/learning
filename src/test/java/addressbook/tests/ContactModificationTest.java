@@ -40,6 +40,7 @@ public class ContactModificationTest extends TestBase{
         Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
         Groups modifiedContactGroups = modifiedContact.getGroups();
+        app.goTo().homePage();
         app.contact().clickCheckboxInList(before.size()-1);
         ContactData contact = new ContactData()
                 .withId(modifiedContact.getId())

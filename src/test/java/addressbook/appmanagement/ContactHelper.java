@@ -15,7 +15,7 @@ import java.util.List;
 import static org.testng.AssertJUnit.assertEquals;
 
 public class ContactHelper extends BaseHelper {
-    
+
     private Contacts contactCache = null;
 
     public int groupId;
@@ -106,7 +106,7 @@ public class ContactHelper extends BaseHelper {
     public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<>();
         List<WebElement> elements = driver.findElements(By.name("entry"));
-        
+
         for (WebElement element : elements){
 
             int id = Integer.parseInt(element.findElement(By.name("selected[]")).getAttribute("id"));
@@ -169,6 +169,7 @@ public class ContactHelper extends BaseHelper {
 
     public void delete(int id) {
         driver.findElement(By.cssSelector("input[id='" + id + "']")).click();
+        click(By.xpath("//input[@value='Delete']"));
         contactCache = null;
     }
 
