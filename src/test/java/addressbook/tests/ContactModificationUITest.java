@@ -2,16 +2,17 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
-import addressbook.model.Groups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ContactModificationTest extends TestBase{
+public class ContactModificationUITest extends TestBase{
 
     private final String groupName = "tst 1";
 
@@ -35,11 +36,11 @@ public class ContactModificationTest extends TestBase{
     @Test
     public void contactModificationTest() throws IOException {
         ensurePreconditions();
-        Contacts before = app.db().contacts();
+        Contacts before = app.contact().all();
         ContactData modifiedContact = before.iterator().next();
-        Groups modifiedContactGroups = modifiedContact.getGroups();
         app.goTo().homePage();
         app.contact().clickCheckboxInList(before.size()-1);
+
         ContactData contact = new ContactData()
                 .withId(modifiedContact.getId())
                 .withMobilePhone("5550173")
@@ -58,11 +59,20 @@ public class ContactModificationTest extends TestBase{
         app.contact().clickUpdateButton();
         app.contact().checkContactUpdated();
         app.goTo().homePage();
-        Contacts after = app.db().contacts();
-        contact = contact.withId(modifiedContact.getId());
+        Contacts after = app.contact().all();
 
+        contact = contact
+                .withId(modifiedContact.getId())
+                .withAllPhones(app.contact().mergePhones(contact))
+                .withAllEmails(app.contact().mergeEmails(contact))
+                .withMobilePhone(null)
+                .withWorkPhone(null)
+                .withHomePhone(null)
+                .withEmail(null)
+                .withEmail2(null)
+                .withEmail3(null);
 
-        assertThat("", after, equalTo(before.without(modifiedContact).withAdded(contact.withGroups(modifiedContactGroups))));
+        assertThat("Lists of contacts should be equal", after, equalTo(before.without(modifiedContact).withAdded(contact)));
 
     }
 

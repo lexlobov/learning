@@ -21,6 +21,9 @@
             <class name="addressbook.tests.ContactEmailTest"/>
             <class name="addressbook.tests.DbConnectionTest"/>
             <class name="addressbook.tests.HbConnectionTest"/>
+            <class name="addressbook.tests.ContactCreationUITest"/>
+            <class name="addressbook.tests.ContactModificationUITest"/>
+            <class name="addressbook.tests.ContactDeletionUITest"/>
         </classes>
     </test>
 </suite>

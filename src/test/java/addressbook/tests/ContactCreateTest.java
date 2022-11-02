@@ -109,26 +109,4 @@ public class ContactCreateTest extends TestBase {
 
     }
 
-    private String mergeEmails(ContactData contact) {
-        return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
-                .stream().filter(s -> !s.equals(""))
-                .collect(Collectors.joining("\n"));
-    }
-
-    private String mergePhones(ContactData contact) {
-        return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
-                .stream().filter(s -> !s.equals(""))
-                .map(ContactPhoneTest::cleaned)
-                .collect(Collectors.joining("\n"));
-    }
-
-
-//    @Test
-//    public void testCurrentDir(){
-//        File currentDir = new File(".");
-//        System.out.println(currentDir.getAbsolutePath());
-//        File photo = new File("src/test/resources/js.jpg");
-//        System.out.println(photo.getAbsolutePath());
-//        System.out.println(photo.exists());
-//    }
 }

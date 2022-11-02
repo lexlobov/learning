@@ -2,6 +2,7 @@ package addressbook.appmanagement;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
+import addressbook.tests.ContactPhoneTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,7 +11,9 @@ import org.testng.Assert;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.testng.AssertJUnit.assertEquals;
 
@@ -194,6 +197,19 @@ public class ContactHelper extends BaseHelper {
                 .withEmail(email)
                 .withEmail2(email2)
                 .withEmail3(email3);
+    }
+
+    public String mergePhones(ContactData contact) {
+        return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
+                .stream().filter(s -> !s.equals(""))
+                .map(ContactPhoneTest::cleaned)
+                .collect(Collectors.joining("\n"));
+    }
+
+    public String mergeEmails(ContactData contact) {
+        return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
+                .stream().filter(s -> ! s.equals(""))
+                .collect(Collectors.joining("\n"));
     }
 
     public int getGroupId() {
