@@ -12,8 +12,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactCreationUITest extends TestBase {
 
     private final String groupName = "tst 1";
-    private final String resourcePath = "src/test/resources/";
-
     @Test
     public void createContactTest() {
         app.goTo().homePage();
@@ -27,6 +25,7 @@ public class ContactCreationUITest extends TestBase {
                 .withMobilePhone("+79854842258")
                 .withWorkPhone("98745558")
                 .withHomePhone("85-522-52")
+                .withSecondaryAddressHome("656256564")
                 .withEmail("amy@email.com")
                 .withEmail2("amy@yahoo.com")
                 .withEmail3("amy@gmail.com");
@@ -47,6 +46,7 @@ public class ContactCreationUITest extends TestBase {
                 .withMobilePhone(null)
                 .withWorkPhone(null)
                 .withHomePhone(null)
+                .withSecondaryAddressHome(null)
                 .withEmail(null)
                 .withEmail2(null)
                 .withEmail3(null);

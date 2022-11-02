@@ -23,6 +23,7 @@ public class TestBase {
 
     public static final AppManager app
             = new AppManager(System.getProperty("browser", Browser.CHROME.browserName()));
+    protected final String resourcePath = "src/test/resources/";
     Logger logger = LoggerFactory.getLogger(TestBase.class);
 
     @BeforeSuite

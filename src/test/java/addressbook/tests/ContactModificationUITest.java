@@ -27,6 +27,7 @@ public class ContactModificationUITest extends TestBase{
                     .withAddress("Hryushkina street")
                     .withHomePhone("464984984")
                     .withWorkPhone("656654654654")
+                    .withSecondaryAddressHome("34345345345")
                     .withMobilePhone("5984894984984898944")
                     .withEmail2("kgdfjgk@fkgjf.tu")
                     .withEmail3("dsfdf@mbm.rt"), groupName);
@@ -52,6 +53,7 @@ public class ContactModificationUITest extends TestBase{
                 .withAddress("Pushkina street")
                 .withWorkPhone("48484848484")
                 .withHomePhone("8878787")
+                .withSecondaryAddressHome("234234234")
                 .withAddress("powepeopwwepro");
 
         app.contact().clickEditButtonInTable(modifiedContact.getId());
@@ -68,6 +70,7 @@ public class ContactModificationUITest extends TestBase{
                 .withMobilePhone(null)
                 .withWorkPhone(null)
                 .withHomePhone(null)
+                .withSecondaryAddressHome(null)
                 .withEmail(null)
                 .withEmail2(null)
                 .withEmail3(null);

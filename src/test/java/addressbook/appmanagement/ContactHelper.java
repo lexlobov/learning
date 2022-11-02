@@ -3,13 +3,18 @@ package addressbook.appmanagement;
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
 import addressbook.tests.ContactPhoneTest;
+import com.google.gson.Gson;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.json.TypeToken;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,15 +52,36 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void fillContactForm(ContactData contactData, boolean creation, String groupName) {
-        typeTextIntoField((By.name("firstname")), contactData.getFirstName());
-        typeTextIntoField((By.name("lastname")), contactData.getLastName());
-        typeTextIntoField((By.name("mobile")), contactData.getMobilePhone());
-        typeTextIntoField((By.name("work")), contactData.getWorkPhone());
-        typeTextIntoField((By.name("home")), contactData.getHomePhone());
-        typeTextIntoField((By.name("email")), contactData.getEmail());
-        typeTextIntoField((By.name("email2")), contactData.getEmail2());
-        typeTextIntoField((By.name("email3")), contactData.getEmail3());
-        typeTextIntoField((By.name("address")), contactData.getAddress());
+        try {
+            typeTextIntoField((By.name("firstname")), contactData.getFirstName());
+            typeTextIntoField((By.name("lastname")), contactData.getLastName());
+            typeTextIntoField((By.name("mobile")), contactData.getMobilePhone());
+            typeTextIntoField((By.name("work")), contactData.getWorkPhone());
+            typeTextIntoField((By.name("home")), contactData.getHomePhone());
+            typeTextIntoField((By.name("email")), contactData.getEmail());
+            typeTextIntoField((By.name("email2")), contactData.getEmail2());
+            typeTextIntoField((By.name("email3")), contactData.getEmail3());
+            typeTextIntoField((By.name("address")), contactData.getAddress());
+            typeTextIntoField(By.name("middlename"), contactData.getMiddleName());
+            typeTextIntoField(By.name("company"), contactData.getCompany());
+            typeTextIntoField(By.name("address"), contactData.getAddress());
+            typeTextIntoField(By.name("fax"), contactData.getFax());
+            typeTextIntoField(By.name("homepage"), contactData.getHomePage());
+            typeTextIntoField(By.name("nickname"), contactData.getNickName());
+            typeTextIntoField(By.name("title"), contactData.getTitle());
+            typeTextIntoField(By.name("byear"), contactData.getYearOfBirth());
+            typeTextIntoField(By.name("ayear"), contactData.getYearOfAnniversary());
+            typeTextIntoField(By.name("address2"), contactData.getSecondaryAddress());
+            typeTextIntoField(By.name("phone2"), contactData.getSecondaryAddressHome());
+            typeTextIntoField(By.name("notes"), contactData.getNotes());
+            new Select(driver.findElement(By.name("bday"))).selectByValue(contactData.getDateOfBirth());
+            new Select(driver.findElement(By.name("bmonth"))).selectByValue(contactData.getMonthOfBirth());
+            new Select(driver.findElement(By.name("aday"))).selectByValue(contactData.getDayOfAnniversary());
+            new Select(driver.findElement(By.name("amonth"))).selectByVisibleText(contactData.getMonthOfAnniversary());
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
 
         if (creation){
             List<WebElement> elements = driver.findElements(By.xpath("//select[@name='new_group']/option"));
@@ -182,6 +208,7 @@ public class ContactHelper extends BaseHelper {
         String lastName = driver.findElement(By.name("lastname")).getAttribute("value");
         String homePhone = driver.findElement(By.name("home")).getAttribute("value");
         String mobilePhone = driver.findElement(By.name("mobile")).getAttribute("value");
+        String home = driver.findElement(By.name("phone2")).getAttribute("value");
         String workPhone = driver.findElement(By.name("work")).getAttribute("value");
         String email = driver.findElement(By.name("email")).getAttribute("value");
         String email2 = driver.findElement(By.name("email2")).getAttribute("value");
@@ -194,13 +221,14 @@ public class ContactHelper extends BaseHelper {
                 .withHomePhone(homePhone)
                 .withMobilePhone(mobilePhone)
                 .withWorkPhone(workPhone)
+                .withSecondaryAddressHome(home)
                 .withEmail(email)
                 .withEmail2(email2)
                 .withEmail3(email3);
     }
 
     public String mergePhones(ContactData contact) {
-        return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
+        return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone(), contact.getSecondaryAddressHome())
                 .stream().filter(s -> !s.equals(""))
                 .map(s -> cleaned(s))
                 .collect(Collectors.joining("\n"));
@@ -213,6 +241,21 @@ public class ContactHelper extends BaseHelper {
                 .map(s -> cleaned(s))
                 .collect(Collectors.joining("\n"));
     }
+
+    public List<ContactData> getListOfContactsFromJsonFile(String resourcePath, String fileName) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(resourcePath + fileName));
+        String json = "";
+        String line = reader.readLine();
+        while (line != null) {
+            json += line;
+            line = reader.readLine();
+        }
+        Gson gson = new Gson();
+        List<ContactData> contacts = (List<ContactData>) gson.fromJson(json, new TypeToken<List<ContactData>>() {
+        }.getType());
+        return contacts;
+    }
+
 
     public String cleaned(String phone){
         return phone.replaceAll("\\s", "").replaceAll("[-()]", "");

@@ -4,6 +4,7 @@ import addressbook.model.ContactData;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.github.javafaker.Faker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
@@ -26,6 +27,11 @@ public class ContactGenerator {
 
     @Parameter(names = "-d", description = "Data format")
     public String format;
+
+    Faker faker = new Faker();
+    private final String resourcePath = "src/test/resources/";
+
+    File photo = new File(resourcePath + "js.jpg");
 
     public static void main(String[] args) throws IOException {
 
@@ -87,15 +93,32 @@ public class ContactGenerator {
         List<ContactData> contacts = new ArrayList<>();
         for (int i= 0; i<count; i++){
             contacts.add(new ContactData()
-                    .withFirstName(String.format("Alex %s", i))
-                    .withLastName(String.format("Jones %s", i))
-                    .withAddress(String.format("Kolotushkina street %s", i))
+                    .withFirstName(faker.name().firstName())
+                    .withLastName(faker.name().lastName())
+                    .withAddress(faker.address().fullAddress())
                     .withMobilePhone(String.format("+7985484225%s", i))
                     .withWorkPhone(String.format("9874555%s", i))
                     .withHomePhone(String.format("85-522-%s", i))
                     .withEmail(String.format("%s@email.com", i))
                     .withEmail2(String.format("%s@yahoo.com", i))
-                    .withEmail3(String.format("%s@gmail.com", i)));
+                    .withEmail3(String.format("%s@gmail.com", i))
+                    .withMiddleName(faker.name().firstName())
+                    .withNickName("Mommy")
+                    .withTitle("intelligence officer")
+                    .withCompany(faker.company().name())
+                    .withFax(faker.phoneNumber().phoneNumber())
+                    .withHomePage("www.abc.com")
+                    .withDateOfBirth(12)
+                    .withMonthOfBirth("January")
+                    .withYearOfBirth("1995")
+                    .withDayOfAnniversary(12)
+                    .withMonthOfAnniversary("February")
+                    .withYearOfAnniversary("1999")
+                    .withSecondaryAddress(faker.address().secondaryAddress())
+                    .withSecondaryAddressHome("8989")
+                    .withNotes("This is a test note for test user because i dont want to generate big text with technical tools")
+                    .withPhoto(photo.getAbsolutePath())
+            );
         }
         return contacts;
     }

@@ -3,9 +3,7 @@ package addressbook.tests;
 import addressbook.model.ContactData;
 import addressbook.model.GroupData;
 import addressbook.model.Groups;
-import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
-import org.openqa.selenium.json.TypeToken;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -25,20 +23,10 @@ import java.util.stream.Collectors;
 public class ContactCreateTest extends TestBase {
 
     private final String groupName = "tst 1";
-    private final String resourcePath = "src/test/resources/";
 
     @DataProvider
     public Iterator<Object[]> validContactsJson() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(resourcePath + "contacts.json"));
-        String json = "";
-        String line = reader.readLine();
-        while (line != null) {
-            json += line;
-            line = reader.readLine();
-        }
-        Gson gson = new Gson();
-        List<ContactData> contacts = (List<ContactData>) gson.fromJson(json, new TypeToken<List<ContactData>>() {
-        }.getType());
+        List<ContactData> contacts = app.contact().getListOfContactsFromJsonFile(resourcePath, "create_contacts.json");
         return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
 
@@ -82,13 +70,12 @@ public class ContactCreateTest extends TestBase {
     }
 
     @Test(dataProvider = "validContactsJson")
-    public void createContactTest(ContactData contact) {
+    public void createContactTest(ContactData contact) throws InterruptedException {
         app.goTo().homePage();
         Contacts before = app.db().contacts();
         app.goTo().contactPage();
-        File photo = new File(resourcePath + "js.jpg");
         app.contact().fillContactForm(contact, true, groupName);
-        app.contact().uploadPhoto(photo.getAbsolutePath());
+        app.contact().uploadPhoto(contact.getPhoto());
         app.contact().submitNewContact();
         app.contact().checkNewContactAdded();
         app.goTo().homePage();
@@ -98,8 +85,9 @@ public class ContactCreateTest extends TestBase {
                 .findFirst()
                 .ifPresent(groups::add);
         Contacts after = app.db().contacts();
+        int newContactId = after.stream().mapToInt(c -> c.getId()).max().getAsInt();
         ContactData addedContact = contact
-                .withId(after.stream().mapToInt(c -> c.getId()).max().getAsInt())
+                .withId(newContactId)
                 .withGroups(groups);
 
 
