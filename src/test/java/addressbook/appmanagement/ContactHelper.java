@@ -202,14 +202,20 @@ public class ContactHelper extends BaseHelper {
     public String mergePhones(ContactData contact) {
         return Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
                 .stream().filter(s -> !s.equals(""))
-                .map(ContactPhoneTest::cleaned)
+                .map(s -> cleaned(s))
                 .collect(Collectors.joining("\n"));
     }
 
     public String mergeEmails(ContactData contact) {
         return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
-                .stream().filter(s -> ! s.equals(""))
+                .stream()
+                .filter(s -> ! s.equals(""))
+                .map(s -> cleaned(s))
                 .collect(Collectors.joining("\n"));
+    }
+
+    public String cleaned(String phone){
+        return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
     }
 
     public int getGroupId() {
